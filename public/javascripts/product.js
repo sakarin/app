@@ -7,12 +7,7 @@ var add_image_handlers = function() {
     $(this).parent('li').addClass('selected');
     return false;
   }).hover(
-          function() {
-            $('#main-image img').attr('src', $(this).attr('href').replace('mini', 'product'));
-          },
-          function() {
-            $('#main-image img').attr('src', $("#main-image").data('selectedThumb'));
-          }
+
           );
 };
  
