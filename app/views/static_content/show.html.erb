@@ -4,20 +4,38 @@
       <meta name="title" content="<%=@page.title%>">
     <% end -%>
 
-    <div class="grid_16" style="margin-left: 0px;margin-right:0px;width: 960px;">
-        <div id="body_content">
-            <div class="top-box-960"></div>
-                <div class="title-960">
-                    <h1><%= @page.title %></h1>
-                </div>
-            <div class="content-960">
-
-                    <%= raw @page.body %>
-
+    <div class="grid_3" style="width:170px; margin-left: 0;">
+        <div id="categories-sidebar">
+            <div class="head-sidebar"></div>
+            <div class="body-sidebar product-categories">
+                <h2>Product Categories</h2>
+                <span class="sidebar-header-line"></span>
+                    <%= render "shared/taxonomies" %>
             </div>
-            <div class="footer-960"></div>
+            <div class="footer-sidebar"></div>
+        </div>
+        <!-- product categories -->
+        <%= render "shared/footballshirt/sidebar/cart_sidebar" %>
+
+    </div>
+    <div class="grid_13" style="margin-right: 0;width:770px;">
+        <div id="product-list">
+        <div class="top-box-770"></div>
+        <div class="title">
+            <h1><%= @page.title %></h1>
+        </div>
+        <div class="clear"></div>
+        <div class="content content-770 clearfix">
+            <div style="padding-left: 20px;padding-right: 20px;">
+                <%= raw @page.body %>
+            </div>
+        </div>
+        <div class="footer-770"></div>
+        <!-- list product -->
         </div>
     </div>
+    <!-- grid_13 -->
+
 
 <% else %>
 
