@@ -181,6 +181,16 @@ ul#nav li a{
     background: url('../../images/footballshirt/sidebar/team_ul_li_logo.png') no-repeat left;
     padding-left: 28px;
 }
+
+#best-seller-sidebar .product-categories ul li{
+    /*margin-left: 5px;*/
+    margin-top: 10px;
+    margin-bottom: 5px;
+    /*background: url('../../images/footballshirt/sidebar/team_ul_li_logo.png') no-repeat left;*/
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
 #categories-sidebar .product-categories ul li.current a{
     color: #ff3333;
 }
