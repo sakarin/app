@@ -1,0 +1,63 @@
+<table class="index">
+  <tbody id='line-items'>
+  <tr>
+    <%= hook :order_details_line_items_headers do %>
+
+        <th class="qty">Season</th>
+        <th class="qty">Taem</th>
+        <th class="qty">Type</th>
+        <th class="qty">Name</th>
+        <th class="qty">Number</th>
+        <th class="qty">Size</th>
+        <th class="qty">Sleeve</th>
+        <th class="qty">Patch</th>
+
+        <th class="qty"><%= t('qty') %></th>
+
+    <% end %>
+  </tr>
+
+
+  <% @line_items.each do |item| %>
+
+      <tr>
+        <%- locals = {:item => item} %>
+        <%= hook :order_details_line_item_row_xxxx, locals do %>
+
+            <td class="qty">
+              <%= item.season unless item.season.empty?  %>
+            </td>
+            <td class="qty">
+              <%= item.team unless item.team.empty?  %>
+            </td>
+            <td class="qty">
+              <%= item.product_type unless item.product_type.empty?  %>
+            </td>
+            <td class="qty">
+              <%= item.name unless item.name.empty?  %>
+            </td>
+            <td class="qty">
+             <%= item.number unless item.number.empty? %>
+            </td>
+            <td class="qty">
+              <%= item.size unless item.size.empty? %>
+            </td>
+             <td class="qty">
+             <%= item.sleeve unless item.sleeve.empty? %>
+            </td>
+            <td class="qty">
+             <%= item.patch unless item.patch.empty? %>
+            </td>
+
+            <td class="qty">
+              <%= item.quantity %>
+            </td>
+
+        <% end %>
+      </tr>
+  <% end %>
+
+  </tbody>
+
+
+</table>

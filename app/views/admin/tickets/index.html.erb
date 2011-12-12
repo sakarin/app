@@ -1,0 +1,27 @@
+<h1><%= "#{t("actions.listing")} #{t("tickets")}" %></h1>
+
+<table class="index">
+  <tr>
+    <th><%= t("ticket") %></th>
+    <th><%= "#{t('spree.date')}/#{t('spree.time')}" %></th>
+    <th><%= t("title") %></th>
+
+    <th><%= t("department") %></th>
+    <th><%= t("replies") %></th>
+    <th><%= t("status") %></th>
+    <th></th>
+  </tr>
+  <% @tickets.each do |ticket| %>
+      <tr id="<%= dom_id ticket %>">
+        <%- locals = {:ticket => ticket} %>
+        <td><%= ticket.id %></td>
+        <td><%= ticket.created_at.to_s(:date_time24) if ticket.created_at %></td>
+        <td><%= link_to ticket.title, admin_ticket_path(ticket) %></td>
+
+        <td><%= ticket.question_category.name %></td>
+        <td><%= ticket.comments.count %></td>
+
+        <td><%= ticket.status %></td>
+      </tr>
+  <% end %>
+</table>

@@ -1,0 +1,25 @@
+<h2>Ticket : <%= @ticket.title %></h2>
+
+<table class="index">
+  <tbody>
+  <tr>
+    <th style="width:140px;">Date/Time</th>
+
+    <th>Comment</th>
+  </tr>
+  <tr id="comment_1">
+    <td><%= @ticket.created_at.to_formatted_s(:long) %></td>
+
+    <td>
+      <div class="order-comment-header" id="order-comment-header-0">
+        <strong><%= @ticket.user.email %> said :</strong>
+      </div>
+      <div class="order-comment-body" id="order-comment-body-0">
+        <%= @ticket.comment %>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<%= render "admin/shared/comments", :commentable => @ticket %>

@@ -1,0 +1,18 @@
+<h1>Listing Purchase</h1>
+
+<table class="index">
+  <tr>
+    <%= hook :admin_purchases_index_headers do %>
+         <th width="200px;"><%= "#{t('spree.date')}/#{t('spree.time')}" %></th>
+        <th><%= "Files" %></th>
+    <% end %>
+
+  </tr>
+  <% @files.each do |file| %>
+      <tr>
+        <td><%= file.created_at.to_s(:date_time24) if file.created_at %></td>
+        <td><%= link_to "#{file.file_name}.pdf", "/assets/pdf/purchases/#{file.file_name}.pdf" %></td>
+      </tr>
+  <% end %>
+</table>
+

@@ -1,0 +1,37 @@
+<div class='purchase-links'>
+  <%= hook :admin_purchase_edit_buttons do %>
+      <div class='toolbar' style="float:left;">
+        <h1><%= t(:purchase) + " #{@purchase.number}" %></h1>
+      </div>
+      <div class='toolbar'>
+        <%= button_link_to(t("print_purchase"), admin_purchase_url(@purchase, :format => "pdf"), :method => :get, :target => '_blank', :icon => 'pdf') %>
+      </div>
+  <% end %>
+</div>
+
+<%= render :partial => 'admin/shared/purchase_tabs', :locals => {:current => "Purchase Details"} %>
+
+<%= form_for(@purchase, :url => admin_purchase_path(@purchase)) do |f| %>
+
+    <p class="admin_line_items_show_details">
+      <%= f.label :supplier, t("supplier_name") %> <span class="required">*</span><br/>
+      <%= f.collection_select(:supplier_id, Supplier.all, :id, :name) %>
+    </p>
+
+
+
+    <%= hook :admin_line_itmes_show_details do %>
+        <p class="admin_line_items_show_details">
+          <%= render :partial => 'admin/purchases/form', :locals => {:line_item => @line_items, :purchase => @purchase} %>
+        </p>
+    <% end %>
+
+    <%= hook :admin_purchase_new_form_buttons do %>
+        <p class="form-buttons">
+          <%= link_to raw("&laquo; #{t("back")}"), admin_purchases_url %>
+        </p>
+    <% end %>
+
+
+
+<% end %>

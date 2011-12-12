@@ -1,0 +1,58 @@
+<div class="grid_16" style="margin-left: 0px;margin-right:0px;width: 960px;">
+  <div id="body_content">
+    <div class="top-box-960"></div>
+    <div class="title-960">
+      <h1><%= "#{t("actions.listing")} #{t("tickets")}" %></h1>
+    </div>
+
+    <div class="content-960">
+
+      <table class="index order-summary" style="width: 100%;">
+        <thead>
+        <tr>
+          <th style="width:70px"><%= t("ticket") %></th>
+          <th style="width:170px"><%= "#{t('spree.date')}/#{t('spree.time')}" %></th>
+          <th style="width:170px"><%= t("title") %></th>
+
+          <th><%= t("department") %></th>
+          <th><%= t("replies") %></th>
+          <th><%= t("status") %></th>
+          <th></th>
+        </tr>
+        </thead>
+        <% @tickets.each do |ticket| %>
+            <tr id="<%= dom_id ticket %>" class="<%= cycle('even', 'odd') %>">
+              <%- locals = {:ticket => ticket} %>
+              <td><%= ticket.id %></td>
+              <td><%= ticket.created_at.to_s(:date_time24) if ticket.created_at %></td>
+              <td><%= link_to ticket.title, ticket_path(ticket) %></td>
+
+              <td><%= ticket.question_category.name %></td>
+              <td><%= ticket.comments.count %></td>
+
+              <td><%= ticket.status %></td>
+            </tr>
+        <% end %>
+      </table>
+
+      <%= render 'shared/error_messages', :target => @ticket %>
+
+      <div class="customize" style="margin-top: 30px;">
+
+        <h1 style="padding-top:0;"><%= t("new_ticket") %></h1>
+        <%= form_for(@ticket, :url => tickets_path) do |f| %>
+            <%= render :partial => "form", :locals => {:f => f} %>
+
+
+            <%= hook :admin_purchase_new_form_buttons do %>
+                <p class="form-buttons">
+                  <%= button t('create') %>
+                </p>
+            <% end %>
+
+        <% end %>
+      </div>
+    </div>
+    <div class="footer-960"></div>
+  </div>
+</div>

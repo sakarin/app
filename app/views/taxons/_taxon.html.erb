@@ -1,0 +1,8 @@
+<% if params[:current_store_id] == 1 %>
+  <%= render :partial => "shared/footballshirt/list_products_all_taxon", :locals => {:products => taxon_preview(taxon), :taxon => taxon} %>
+<% else %>
+<div class="taxon">
+  <h2><%= link_to taxon.name, seo_url(taxon), :class => 'breadcrumbs' %></h2>
+  <%= render :partial => "shared/products", :locals => {:products => taxon_preview(taxon), :taxon => taxon} %>
+</div>
+<% end %>

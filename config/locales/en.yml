@@ -1,0 +1,85 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+
+  number:
+    # Used in number_to_currency()
+    currency:
+      format:
+        # Where is the currency sign? %u is the currency unit, %n the number (default: $5.00)
+        format: "%u%n"
+        unit: "£"
+        # These three are to override number.format and are optional
+        separator: "."
+        delimiter: ","
+        precision: 2
+
+  purchases: "Purchases"
+  purchase: "Purchase"
+  new_purchase: "New Purchase"
+  listing_purchases: "Listing Purchases"
+  purchase_date: "Purchase Date"
+  purchase_number: "Purchase"
+  purchase_total: "Purchase Total"
+  purchase_state: "Purchase State"
+  purchase_update: "Purchase Update"
+  purchase_states:
+    received: "Received"
+    pending: "Pending"
+    purchasing: "Purchasing"
+    purchased: "Purchased"
+
+  receive_product: "Receive Product"
+  receive_products: "Receive Products"
+  new_receive_product: "New Receive Product"
+  receive_product_details: "Receive Product Details"
+
+  new_supplier: "New Supplier"
+  suppliers: "Suppliers"
+  suppliers_description: "Manage Suppliers."
+
+
+
+  add_order: "Add Order"
+
+
+
+  warehouse: "Warehouse"
+  account: "Accounting"
+
+
+    
+  convert_to_purchase_order: Convert to Purchase Order
+
+  print_purchase: Export PO
+
+  shipment_report: Print Shipments
+  shipment_states:
+    packet: packet
+
+  unable_to_find_store: "Unable to find Store"
+
+  ticket: "Ticket"
+  tickets: "Tickets"
+
+  said: said
+  for: for
+  comments: Comments
+  comment: Comment
+  add_comment: Add Comment
+  add_comment_type: Add Comment Type
+  comment_types: Comment Types
+  manage_comment_types: Manage comment types
+  applies_to: Applies To
+  new_comment_type: New Comment Type
+  editing_comment_type: Editing Comment Type
+
+
+  listing_shipments: Listing Shipments
+
+  refunds: Refunds
+
+
+
+

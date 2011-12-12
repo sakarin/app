@@ -1,0 +1,34 @@
+<% content_for :head do %>
+<style>
+  tbody dl {margin-left: 10px;}
+  tbody dl dt {font-weight: normal;}
+  tbody dl dd p {margin:0;}
+</style>
+<% end %>
+
+<dl>
+  <% #TODO: group multi-select options (e.g. toppings) %>
+  <% item.ad_hoc_option_values.each do |pov| %>
+    <dt><%= pov.option_value.option_type.presentation %> (<%= format_price pov.price_modifier %>)</dt>
+    <dd><%= pov.option_value.presentation %></dd>
+  <% end %>
+
+  <% item.product_customizations.each do |customization| %>
+    <% next if customization.customized_product_options.all? {|cpo| cpo.value.empty? } %>
+
+    <dt><%= customization.product_customization_type.presentation %> (<%= format_price customization.price %>)</dt>
+    <dd>
+          <% customization.customized_product_options.each do |option| %>
+            <% next if option.value.empty? %>
+
+	          <% partial = option.customizable_product_option.name %>
+            <% lookup=ActionView::LookupContext.new(ActionController::Base.view_paths, {:formats => [:html]}) %>
+            <% if lookup.exists?("orders/custom_fields/#{partial}",nil,true) %>
+              <%= render :partial => "orders/custom_fields/#{partial}", :locals=>{:option => option} %>
+            <% else %>
+              <p><%= option.customizable_product_option.presentation %> = <%= option.value %></p>
+            <% end %>
+          <% end # each option %>
+    </dd>
+    <% end # each customization %>
+</dl>

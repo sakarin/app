@@ -1,0 +1,26 @@
+
+
+<% content_for :sidebar do %>
+  <div id="order_tab_summary">
+    <h3 id="order_number"><%= "#{t(:purchase)} ##{@purchase.number} " %></h3>
+    <h5 id="order_status"><%= "#{t(:status)}: #{t("purchase_states.#{@purchase.state}")}" %></h5>
+
+    <br class="clear" />
+  </div>
+  <br class="clear" />
+
+  <ul class="sidebar">
+    <%= hook :admin_purchase_tabs, {:current => current} do %>
+       <li<%== ' class="active"' if current == "Purchase Details" %>>
+          <%= link_to t("purchase_details"), edit_admin_purchase_url(@purchase) %>
+        </li>
+        <li<%== ' class="active"' if current == "Receive Product Details" %>>
+            <%= link_to t("receive_product_details"), admin_purchase_receive_products_url(@purchase) %>
+        </li>
+        <li<%== ' class="active"' if current == "Return Product" %>>
+            <%= link_to "Return Product", admin_purchase_return_products_url(@purchase) %>
+        </li>
+    <% end %>
+  </ul>
+
+<% end %>

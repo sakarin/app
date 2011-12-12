@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<title><%= "#{t('administration')}: " %>
+<%= t(controller.controller_name, :default => controller.controller_name.titleize) %></title>
+
+<%= stylesheet_link_tag 'report/admin-reset',  'report/admin-tables', 'report/admin', 'report/admin-typography.css' %>
+</head>
+<body>
+<!--[if IE 7]>
+<div id='IE7'>
+<![endif]-->
+<div id='wrapper'>
+	
+
+   <div class="<%= 'with-sidebar ' if content_for?(:sidebar) %> clear tile_bg" id="content">
+
+    <%= yield %>
+    </div>
+
+</div>
+<!--[if IE]>
+</div>
+<![endif]-->
+
+
+</body>
+</html>

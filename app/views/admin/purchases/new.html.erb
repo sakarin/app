@@ -1,0 +1,26 @@
+<h1><%= t(:purchase) + " #{@purchase.number}" %></h1>
+
+<%= form_for(@purchase, :url => admin_purchase_path(@purchase)) do |f| %>
+
+    <p class="admin_line_items_show_details">
+      <%= f.label :supplier, t("supplier_name") %> <span class="required">*</span><br/>
+      <%= f.collection_select(:supplier_id, Supplier.all, :id, :name) %>
+    </p>
+
+
+
+    <%= hook :admin_line_itmes_show_details do %>
+        <p class="admin_line_items_show_details">
+          <%= render :partial => 'admin/purchases/form', :locals => {:line_item => @line_items, :purchase => @purchase} %>
+        </p>
+    <% end %>
+
+    <%= hook :admin_purchase_new_form_buttons do %>
+        <p class="form-buttons">
+          <%= button t('create') %>
+        </p>
+    <% end %>
+
+
+
+<% end %>

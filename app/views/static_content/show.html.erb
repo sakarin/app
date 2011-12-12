@@ -1,0 +1,39 @@
+<% if params[:current_store_id] == 1 %>
+
+    <% content_for :head do -%>
+      <meta name="title" content="<%=@page.title%>">
+    <% end -%>
+
+    <div class="grid_16" style="margin-left: 0px;margin-right:0px;width: 960px;">
+        <div id="body_content">
+            <div class="top-box-960"></div>
+                <div class="title-960">
+                    <h1><%= @page.title %></h1>
+                </div>
+            <div class="content-960">
+
+                    <%= raw @page.body %>
+
+            </div>
+            <div class="footer-960"></div>
+        </div>
+    </div>
+
+<% else %>
+
+    <% content_for :head do -%>
+      <meta name="title" content="<%=@page.title%>">
+    <% end -%>
+    <% content_for :sidebar do %>
+      <% if "products" == @current_controller && @taxon %>
+        <%= render :partial => "shared/filters" %>
+      <% else %>
+        <%= render :partial => "shared/taxonomies" %>
+      <% end %>
+    <% end %>
+    <h1><%= @page.title %></h1>
+    <div id="page_content">
+      <%= raw @page.body %>
+    </div>
+
+<% end %>

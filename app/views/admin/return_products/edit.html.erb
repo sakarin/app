@@ -1,0 +1,19 @@
+<h1><%= t(:receive_product) + " #{@return_product.number}" %></h1>
+
+<%= render :partial => 'admin/shared/purchase_tabs', :locals => {:current => "Return Product"} %>
+
+<%= hook :admin_line_itmes_show_details do %>
+    <p class="admin_line_items_show_details">
+      <%= render :partial => 'admin/return_products/form', :locals => {:line_item => @line_item, :receive_product => @return_product} %>
+    </p>
+<% end %>
+
+<%= hook :admin_purchase_update_form_buttons do %>
+
+    <p class="form-buttons">
+      <%= link_to raw("&laquo; #{t("back")}"), admin_purchase_return_products_url %>
+    </p>
+<% end %>
+
+
+

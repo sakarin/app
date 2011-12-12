@@ -1,0 +1,25 @@
+<%= render :partial => 'admin/shared/supplier_sub_menu' %>
+
+<%= render "shared/error_messages", :target => @supplier %>
+
+<%= form_for(@supplier, :url => object_url, :html => { :method => :put, :multipart => true }) do |f| %>
+ <div class="yui-u first">
+  <%= f.field_container :name do %>
+    <%= f.label :name, t("name") %> <span class="required">*</span><br />
+    <%= f.text_field :name, :class => 'fullwidth title'  %>
+    <%= f.error_message_on :name %>
+  <% end %>
+</div>
+ <div class="yui-u">
+	<%= f.field_container :email do %>
+        <%= f.label :email, t("email")%> <span class="required">*</span><br />
+        <%= f.text_field :email, :size => 40 %>
+        <%= f.error_message_on :email %>
+      <% end %>
+</div>
+      <%= render :partial => 'admin/shared/edit_resource_links' %>
+
+
+<% end %>
+
+

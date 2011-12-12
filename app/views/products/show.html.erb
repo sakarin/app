@@ -1,0 +1,95 @@
+<% if params[:current_store_id] == 1 %>
+    <% @body_id = 'product-details' %>
+
+    <% content_for :sidebar do %>
+        <%= render "shared/taxonomies" %>
+    <% end %>
+    <%= render "shared/footballshirt/sidebar_left"  %>
+
+    <div class="grid_13" style="margin-right: 0;width:770px;">
+        <div id="body_content">
+            <div class="top-box-770"></div>
+                <div class="title">
+                    <h1><%= accurate_title %></h1>
+                </div>
+            <div class="content content-770" style="padding-bottom: 0;">
+                <div id="product-images">
+                    <%= hook :product_images do %>
+                        <div id="main-image">
+                            <%= render 'image' %>
+                        </div>
+                        <div id="thumbnails" class="clearfix">
+                            <%= render 'thumbnails', :product => @product %>
+                        <div class="clear"></div>
+                        </div>
+                    <% end %>
+                </div>
+                <div id="product-description">
+                    <%= hook :product_description do %>
+                        <%= product_description(@product) rescue t("product_has_no_description") %>
+                    <% end %>
+                    <%= hook :product_properties do %>
+                        <%#= render 'properties' %>
+                    <% end %>
+                </div>
+                <div class="customize">
+                    <%= hook :cart_form do %>
+                      <div id="cart-form">
+                        <%= render 'cart_form' %>
+                      </div>
+                    <% end %>
+
+                </div>
+                <%#= render 'taxons' %>
+            </div>
+            <%= render 'shared/footballshirt/order_description' %>
+            <div class="footer-770"></div>
+        </div>
+    </div>
+    <!-- grid_10 body_content -->
+
+    <%#= render "shared/footballshirt/sidebar_right" %>
+
+<% else %>
+    <% @body_id = 'product-details' %>
+    <div class="page-title"><h3><%= accurate_title %></h3></div>
+
+    <div style="margin-left:15px; padding-bottom:10px;">
+
+      <!-- margin-left temp -->
+
+    <h1 style="margin-top:10px;"><%= accurate_title %></h1>
+      <%= breadcrumbs(@taxon)  %>
+
+    <div id="product-images">
+      <%= hook :product_images do %>
+      <div id="main-image">
+        <%= render 'image' %>
+      </div>
+      <div id="thumbnails">
+        <%= render 'thumbnails', :product => @product %>
+      </div>
+      <% end %>
+    </div>
+
+    <div id="product-description">
+      <%= hook :product_description do %>
+        <%= product_description(@product) rescue t("product_has_no_description") %>
+      <% end %>
+      <%= hook :product_properties do %>
+        <%= render 'properties' %>
+      <% end %>
+    </div>
+
+    <%= hook :cart_form do %>
+      <div id="cart-form">
+        <%= render 'cart_form' %>
+      </div>
+    <% end %>
+    </div>
+    <%= render 'taxons' %>
+<% end %>
+
+
+
+

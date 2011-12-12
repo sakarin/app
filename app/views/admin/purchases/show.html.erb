@@ -1,0 +1,17 @@
+<h1><%= t(:purchase) + " #{@purchase.number}" %></h1>
+
+
+
+  <p class="admin_line_items_show_details">
+     <h2><%= t(:supplier) + " : #{@purchase.supplier.name}" %></h2>
+  </p>
+
+
+
+ <%= hook :admin_line_itmes_show_details do %>
+   <p class="admin_line_items_show_details">
+   <%= render :partial => 'admin/purchases/details', :locals => {:line_items => @line_items} %>
+   </p>
+ <% end %>
+
+

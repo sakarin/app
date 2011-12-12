@@ -1,0 +1,15 @@
+<%= render 'shared/error_messages', :target => @ticket %>
+<h1><%= t("new_ticket") %></h1>
+
+
+<%= form_for(@ticket, :url => ticket_path(@ticket)) do |f| %>
+    <%= render :partial => "form", :locals => {:f => f} %>
+
+
+<%= hook :admin_purchase_new_form_buttons do %>
+    <p class="form-buttons">
+      <%= button t('create') %>
+    </p>
+  <% end %>
+
+<% end %>

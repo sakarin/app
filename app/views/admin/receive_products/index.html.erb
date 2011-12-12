@@ -1,0 +1,49 @@
+<div class='toolbar'>
+  <ul class='actions'>
+    <li id='new_purchase_section'>
+
+      <% if @purchase.state == "purchased" %>
+      <%= button_link_to t("new_receive_product"), new_admin_purchase_receive_product_url, :icon => 'add'  %>
+      <% end %>
+    </li>
+  </ul>
+  <br class='clear' />
+</div>
+
+<%= render :partial => 'admin/shared/purchase_tabs', :locals => {:current => "Receive Product Details"} %>
+
+<h1><%= "#{t("actions.listing")} #{t("receive_products")}" %></h1>
+
+<table class="index">
+  <tr>
+    <%= hook :admin_purchases_index_headers do %>
+	  <th><%= "#{t('spree.date')}/#{t('spree.time')}" %></th>
+      <th><%= t("receive_product_number") %></th>
+
+    <% end %>
+    <th>
+      <%= hook :admin_purchases_index_header_actions do %>
+        <%#= t("action") %>
+      <% end %>
+    </th>
+  </tr>
+  <% @receive_products.each do |receive_product| %>
+    <tr id="<%= dom_id receive_product %>">
+      <%- locals = {:receive_product => receive_product, :purchase => @purchase} %>
+      <%= hook :admin_receive_products_index_rows, locals do %>
+		<td><%= receive_product.created_at.to_s(:date_time24) if receive_product.created_at %></td>
+        <td><%= link_to receive_product.number, edit_admin_purchase_receive_product_path(@purchase, receive_product)  %></td>
+
+
+
+
+      <% end %>
+      <td class="actions">
+        <%= hook :admin_purchases_index_row_actions, locals do %>
+          <%= link_to_with_icon 'edit', t('edit'), edit_admin_purchase_receive_product_url(@purchase, receive_product) %>
+          <%#= link_to_delete purchase, :url => admin_purchase_receive_product_url(@purchase, receive_product) %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>

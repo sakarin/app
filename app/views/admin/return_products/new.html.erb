@@ -1,0 +1,17 @@
+<h1>New Return Product</h1>
+<h2><%= "Supplier : #{@purchase.supplier.name}" %></h2>
+
+<%= form_for(@return_product, :url => admin_purchase_return_products_path(@purchase)) do |f| %>
+    <%= hook :admin_line_itmes_show_details do %>
+        <p class="admin_line_items_show_details">
+          <%= render :partial => 'admin/return_products/form', :locals => {:line_item => @line_items, :purchase => @purchase} %>
+        </p>
+    <% end %>
+
+    <%= hook :admin_purchase_new_form_buttons do %>
+        <p class="form-buttons">
+          <%= button t('create') %>
+          <%= link_to raw("&laquo; #{t("back")}"), admin_purchase_return_products_url %>
+        </p>
+    <% end %>
+<% end %>

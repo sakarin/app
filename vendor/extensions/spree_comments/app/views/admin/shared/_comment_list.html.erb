@@ -1,0 +1,25 @@
+<table class="index">
+  <tr>
+    <th style="width:140px;"><%= "#{I18n::t('spree.date')}/#{I18n::t('spree.time')}" %></th>
+    <% if @comment_types and !@comment_types.empty? %>
+      <th><%= I18n::t("type") %></th>
+    <% end %>
+    <th><%= I18n::t("comment") %></th>
+  </tr>
+  <% commentable.comments.reverse.each_with_index do |comment, index| %>
+    <tr id="<%= dom_id(comment) %>">
+      <td><%= comment.created_at.to_formatted_s(:long) %></td>
+      <% if @comment_types and !@comment_types.empty? %>
+        <td><%= comment.comment_type.name if comment.comment_type %></td>
+      <% end %>
+      <td>
+        <div id="order-comment-header-<%= index %>" class="order-comment-header">
+          <strong><%= comment.user.email + ' ' + I18n::t('said')%> :</strong>
+        </div>
+        <div id="order-comment-body-<%= index %>" class="order-comment-body">
+          <%= comment.comment.html_safe %>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+</table>

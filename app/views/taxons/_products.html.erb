@@ -1,0 +1,56 @@
+<%
+  paginated_products = @searcher.products if params.key?(:keywords)
+  paginated_products ||= products
+%>
+<% if params[:current_store_id] == 1 %>
+
+<% else %>
+
+    <div class="category-products">
+    <% if products.empty? %>
+      <%= t(:no_products_found) %>
+    <% elsif params.key?(:keywords) %>
+      <h3><%= t(:search_results, :keywords => h(params[:keywords])) %></h3>
+    <% end %>
+
+    <% if products.any? %>
+    <ul class="products-grid last">
+      <% products.each do |product| %>
+        <% if Spree::Config[:show_zero_stock_products] || product.has_stock? %>
+          <li class="item" id="product_<%= product.id %>">
+            <%= hook :products_list_item, {:product => product} do %>
+              <%= link_to small_image(product), product, :class => "product-image" %>
+              <h2 class="product-name">
+                <%= link_to product.name, product %>
+              </h2>
+              <div class="price-box">
+                <p class="old-price">
+                    <span class="price-label">Price:</span>
+                    <%= link_to raw( "<span class='price' id='product-price-#{product.id}'>#{product_price(product)}</span>"), product, :class => 'info' %>
+                </p>
+              </div>
+              <div class="actions">
+                <%= link_to raw("<button type='button' title='Add to Cart' class='button btn-cart'><span><span>Add to Cart</span></span></button>"), product %>
+              </div>
+            <% end %>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+    <% end %>
+
+    <hr class="space" />
+
+    <% if paginated_products.respond_to?(:total_pages)
+          params.delete(:search)
+          params.delete(:taxon)
+
+    %><%= will_paginate(paginated_products,
+                        :previous_label => "&#171; #{t('previous')}",
+                        :next_label => "#{t('next')} &#187;") %>
+    <% end %>
+
+
+    </div>
+    <!-- category-products -->
+<% end %>

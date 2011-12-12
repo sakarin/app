@@ -1,0 +1,38 @@
+<div class='toolbar' style="display: block;width: 100%;">
+  <ul class='actions'>
+
+
+    <li id='new_shipment_section'>
+      <%= hook :admin_order_show_buttons do %>
+          <%= button_link_to(t('shipment_report'), "/admin/shipments/print.pdf", :method => :get, :target => "_blank", :icon => 'pdf') %>
+      <% end %>
+    </li>
+  </ul>
+  <br class='clear'/>
+  <br class='clear'/>
+</div>
+
+
+
+<% @shipments.each do |shipment| %>
+    <%- locals = {:shipment => shipment} %>
+
+    <%= hook :admin_order_show_details, locals do %>
+        <%= render :partial => 'admin/shipments/print_form', :locals => {:shipment => shipment} %>
+    <% end %>
+
+    <% if shipment.order.ship_address %>
+        <div class='adr'>
+          <h4><%= t("ship_address") %></h4>
+          <%= render :partial => 'admin/shared/address', :locals => {:address => shipment.order.ship_address} %>
+        </div>
+        <div style="float: right;">
+          <%= shipment.number if shipment.number %>
+        </div>
+    <% end %>
+    <hr/>
+
+
+    <br class='clear'/>
+
+<% end %>

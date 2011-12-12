@@ -1,0 +1,49 @@
+<table class="index">
+  <tbody id='line-items'>
+  <tr>
+    <th class="qty">Season</th>
+    <th class="qty">Team</th>
+    <th class="qty">Type</th>
+    <th class="qty">Name</th>
+    <th class="qty">Number</th>
+    <th class="qty">Size</th>
+    <th class="qty">Sleeve</th>
+    <th class="qty">Patch</th>
+  </tr>
+
+
+  <% shipment.inventory_units.each do |item| %>
+
+      <tr>
+        <td>
+          <%= item.season unless item.season.blank? %>
+        </td>
+        <td width="100">
+          <%= item.team unless item.team.blank? %>
+        </td>
+        <td>
+          <%= item.product_type unless item.product_type.blank? %>
+        </td>
+        <td>
+          <%= item.name unless item.name.blank? %>
+        </td>
+        <td>
+          <%= item.number unless item.number.blank? %>
+        </td>
+        <td>
+          <%= item.size unless item.size.blank? %>
+        </td>
+         <td width="200">
+          <%= item.sleeve unless item.sleeve.blank? %>
+        </td>
+        <td width="200">
+          <%= item.patch unless item.patch.blank? %>
+        </td>
+
+      </tr>
+  <% end %>
+
+  </tbody>
+
+
+</table>

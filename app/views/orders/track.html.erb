@@ -1,0 +1,17 @@
+<% if params[:current_store_id] == 1 %>
+    <div class="grid_16" style="margin-left: 0px;margin-right:0px;width: 960px;">
+        <div id="body_content">
+            <div class="top-box-960"></div>
+                <div class="title-960">
+                    <h1>Track your order</h1>
+                </div>
+            <div class="content-960">
+                <%#= render :partial => 'shared/tracking/thailandpost' %>
+                <%= render :partial => 'shared/tracking/dhl' %>
+            </div>
+            <div class="footer-960"></div>
+        </div>
+    </div>
+<% else %>
+    <%= render :partial => 'shared/tracking/thailandpost' %>
+<% end %>

@@ -1,0 +1,95 @@
+<table class="index">
+  <tbody id='line-items'>
+    <tr>
+      <%= hook :order_details_line_items_headers do %>
+        <th><%= t('item_description') %></th>
+        <th class="qty">Name</th>
+		<th class="qty">Number</th>
+		<th class="qty">Size</th>
+		<th class="qty">Patch</th>
+
+        <th class="qty"><%= t('qty') %></th>
+
+      <% end %>
+    </tr>
+
+
+      <% shipment.order.line_items.inventory(shipment.id).each do |item| %>
+      <% #if item.inventory(@shipment.id) %>
+      <tr>
+        <%- locals = {:item => item} %>
+        <%= hook :order_details_line_item_row_xxxx, locals do %>
+		  <!-- Hook -->
+
+			<td width="300"><%=item.variant.product.name%> <%= "(" + variant_options(item.variant) + ")" unless item.variant.option_values.empty? %>
+
+			</td>
+			<td class="qty">
+
+				<% item.product_customizations.each do |customization| %>
+				    <% next if customization.customized_product_options.all? {|cpo| cpo.value.empty? } %>
+
+			    	<% if customization.product_customization_type.name.downcase == 'name' %>
+
+			          <% customization.customized_product_options.each do |option| %>
+			            <% next if option.value.empty? %>
+
+				          <% partial = option.customizable_product_option.name %>
+			            <% lookup=ActionView::LookupContext.new(ActionController::Base.view_paths, {:formats => [:html]}) %>
+			            	<% if lookup.exists?("orders/custom_fields/#{partial}",nil,true) %>
+				              <%= render :partial => "orders/custom_fields/#{partial}", :locals=>{:option => option} %>
+				            <% else %>
+				              <%= option.value %>
+				            <% end %>
+			          <% end  %>
+			       <% end %>
+			    <% end  %>
+			</td>
+			<td class="qty">
+
+				<% item.product_customizations.each do |customization| %>
+				    <% next if customization.customized_product_options.all? {|cpo| cpo.value.empty? } %>
+
+			    	<% if customization.product_customization_type.name.downcase == 'number' %>
+
+			          <% customization.customized_product_options.each do |option| %>
+			            <% next if option.value.empty? %>
+
+				          <% partial = option.customizable_product_option.name %>
+			            <% lookup=ActionView::LookupContext.new(ActionController::Base.view_paths, {:formats => [:html]}) %>
+			            	<% if lookup.exists?("orders/custom_fields/#{partial}",nil,true) %>
+				              <%= render :partial => "orders/custom_fields/#{partial}", :locals=>{:option => option} %>
+				            <% else %>
+				              <%= option.value %>
+				            <% end %>
+			          <% end  %>
+			       <% end %>
+			    <% end  %>
+			</td>
+			<td class="qty">
+				<% item.ad_hoc_option_values.each do |pov| %>
+				    <% if pov.option_value.option_type.name.downcase == 'size' %>
+				    	<%= pov.option_value.presentation %>
+				    <% end %>
+				<% end %>
+			</td>
+			<td class="qty">
+				<% item.ad_hoc_option_values.each do |pov| %>
+				    <% if pov.option_value.option_type.name.downcase == 'patch' %>
+				    	<%= pov.option_value.presentation %>
+				    <% end %>
+				<% end %>
+			</td>
+
+			<td class="qty"><%=item.quantity%></td>
+
+        <% end %>
+      </tr>
+      <% #end %>
+    <% end %>
+
+  </tbody>
+
+
+
+</table>

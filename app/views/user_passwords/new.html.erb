@@ -1,0 +1,41 @@
+<% if params[:current_store_id] == 1 %>
+
+    <div class="grid_16" style="margin-left: 0px;margin-right:0px;width: 960px;">
+        <div id="body_content">
+            <div class="top-box-960"></div>
+                <div class="title-960">
+                    <h1><%= t(:forgot_password) %></h1>
+                </div>
+            <div class="content-960">
+                <p><%= t(:instructions_to_reset_password) %></p>
+                <%= form_for User.new, :as => :user, :url => user_password_path do |f| %>
+                    <p>
+                        <label><%= t(:email) %>:</label><br />
+                            <%= f.email_field :email %>
+                    </p>
+                    <p>
+                        <%= f.submit t("reset_password") %>
+                    </p>
+                <% end %>
+            </div>
+            <div class="footer-960"></div>
+        </div>
+    </div>
+
+<% else %>
+
+    <h1><%= t(:forgot_password) %></h1>
+
+    <p><%= t(:instructions_to_reset_password) %></p>
+
+    <%= form_for User.new, :as => :user, :url => user_password_path do |f| %>
+    <p>
+        <label><%= t(:email) %>:</label><br />
+            <%= f.email_field :email %>
+    </p>
+    <p>
+        <%= f.submit t("reset_password") %>
+    </p>
+    <% end %>
+
+<% end %>

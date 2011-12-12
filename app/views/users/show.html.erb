@@ -1,0 +1,135 @@
+<% if params[:current_store_id] == 1 %>
+
+    <div class="grid_16" style="margin-left: 0px;margin-right:0px;width: 960px;">
+      <div id="body_content">
+        <div class="top-box-960"></div>
+        <div class="title-960">
+          <h1><%= t("my_account") %></h1>
+        </div>
+        <div class="content-960">
+          <%= hook :account_summary do %>
+
+              <table>
+                <tr>
+                  <td><%= t("email") %>:</td>
+                  <td>
+                    <%= @user.email %>
+                  </td>
+                </tr>
+              </table>
+              <div id="myaccount-info">
+                <p><%= link_to t('edit'), edit_account_path %></p>
+              </div>
+
+          <% end %>
+        </div>
+        <div class="content-960">
+
+          <%= hook :account_my_orders do %>
+
+              <h2 style="padding-top: 0px;font-weight: normal;text-align: left;font-size: 21px;margin-bottom: 15px;"><%= t("my_orders") %></h2>
+              <% if @orders.present? %>
+                  <table class="order-summary" width="545">
+                    <thead>
+                    <tr>
+                      <th><%= t("order_number") %></th>
+                      <th><%= t("order_date") %></th>
+                      <th><%= t("status") %></th>
+                      <th><%= t("payment_state") %></th>
+                      <th><%= t("shipment_state") %></th>
+                      <th><%= t("total") %></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% @orders.each do |order| %>
+                        <tr class="<%= cycle('even', 'odd') %>">
+                          <td><%= link_to order.number, order_url(order) %></td>
+                          <td><%= order.created_at.to_date %></td>
+                          <td><%= t(order.state).titleize %></td>
+                          <td><%= t("payment_states.#{order.payment_state}") if order.payment_state %></td>
+
+                          <% if order.shipment_state == 'shipped' %>
+                              <td><%= t("shipment_states.#{order.shipment_state}") + "("+ "link_to" +")" if order.shipment_state %></td>
+                          <% else %>
+                              <td>
+                                <% order.shipments.each do |ship| %>
+                                    <% unless ship.tracking.blank? %>
+                                        <% site_url = TrackingNumber.where("end_with LIKE '#{ship.tracking.to_s[-2, 2]}%'").last.site_url %>
+                                        <%= link_to ship.tracking, site_url %>
+                                        <br>
+                                    <% end %>
+                                <% end %>
+
+                              </td>
+                          <% end %>
+
+
+                          <td><%= number_to_currency order.total %></td>
+                        </tr>
+                    <% end %>
+                    </tbody>
+                  </table>
+              <% else %>
+                  <p><%= t(:you_have_no_orders_yet) %></p>
+              <% end %>
+              <br/>
+          <% end %>
+
+        </div>
+        <div class="footer-960"></div>
+      </div>
+    </div>
+<% else %>
+
+    <h1><%= t("my_account") %></h1>
+
+    <%= hook :account_summary do %>
+
+        <table>
+          <tr>
+            <td><%= t("email") %>:</td>
+            <td>
+              <%= @user.email %>
+            </td>
+          </tr>
+        </table>
+        <p><%= link_to t('edit'), edit_account_path %></p>
+
+    <% end %>
+
+    <%= hook :account_my_orders do %>
+
+        <h2><%= t("my_orders") %></h2>
+        <% if @orders.present? %>
+            <table class="order-summary" width="545">
+              <thead>
+              <tr>
+                <th><%= t("order_number") %></th>
+                <th><%= t("order_date") %></th>
+                <th><%= t("status") %></th>
+                <th><%= t("payment_state") %></th>
+                <th><%= t("shipment_state") %></th>
+                <th><%= t("total") %></th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @orders.each do |order| %>
+                  <tr class="<%= cycle('even', 'odd') %>">
+                    <td><%= link_to order.number, order_url(order) %></td>
+                    <td><%= order.created_at.to_date %></td>
+                    <td><%= t(order.state).titleize %></td>
+                    <td><%= t("payment_states.#{order.payment_state}") if order.payment_state %></td>
+                    <td><%= t("shipment_states.#{order.shipment_state}") if order.shipment_state %></td>
+                    <td><%= number_to_currency order.total %></td>
+                  </tr>
+              <% end %>
+              </tbody>
+            </table>
+        <% else %>
+            <p><%= t(:you_have_no_orders_yet) %></p>
+        <% end %>
+        <br/>
+
+    <% end %>
+
+<% end %>

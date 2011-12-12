@@ -1,0 +1,98 @@
+<table class="index">
+  <tr>
+    <th>Season</th>
+    <th>Team</th>
+    <th>Type</th>
+    <th>Name</th>
+    <th>Number</th>
+    <th>Size</th>
+    <th>Patch</th>
+    <th><%= t("quantity_shipped") %></th>
+
+    <th><%= t("return_quantity") %></th>
+  </tr>
+  <% @return_authorization.order.inventory_units.group("variant_id, name, number, size, patch, season, team, product_type, original_po").select("id, variant_id as variant_id, count(variant_id) as quantity, name, number, size, patch, state, season, team, product_type, original_po").where(:state => 'shipped').each do | item| %>
+      <% variant = item.variant %>
+    <tr id="<%= dom_id(item) %>">
+
+        <td class="qty">
+          <%= item.season unless item.season.blank? %>
+        </td>
+        <td class="qty">
+          <%= item.team unless item.team.blank? %>
+        </td>
+        <td class="qty">
+          <%= item.product_type unless item.product_type.blank? %>
+        </td>
+        <td class="qty">
+          <%= item.name unless item.name.blank? %>
+        </td>
+        <td class="qty">
+          <%= item.number unless item.number.blank? %>
+        </td>
+        <td class="qty" style="width: 10px;">
+          <%= item.size unless item.size.blank? %>
+        </td>
+        <td>
+          <%= item.patch unless item.patch.blank? %>
+        </td>
+        <td><%= item.quantity %></td>
+       <td class="return_quantity">
+         <%= text_field_tag "return_quantity[#{item.id}]", 0, {:style => "width:30px;"} %>
+      </td>
+
+    </tr>
+  <% end %>
+</table>
+
+<%= f.field_container :amount do %>
+  <%= f.label :amount, t("amount")%> <span class="required">*</span><br />
+  <% if @return_authorization.received? %>
+    <%= number_to_currency(@return_authorization.amount) %>
+  <% else %>
+    <%= f.text_field :amount, {:style => "width:80px;"} %> <%= t("rma_value") %>: <span id="rma_value"></span>
+    <%= f.error_message_on :amount %>
+  <% end %>
+<% end %>
+
+<%= f.field_container :reason do %>
+  <%= f.label :reason, t("reason")%>
+  <%= f.text_area :reason, {:style=> "height:100px;", :class => 'fullwidth'} %>
+  <%= f.error_message_on :reason %>
+<% end %>
+
+
+<% content_for :head do %>
+  <script type="text/javascript">
+    var variant_prices = new Array();
+    <% @return_authorization.order.inventory_units.group("variant_id, name, number, size, patch, season, team, product_type, original_po").select("id, variant_id as variant_id, count(variant_id) as quantity, name, number, size, patch, state, season, team, product_type, original_po, price").where(:state => 'shipped').each do | item| %>
+    <% variant = item.variant %>
+
+
+      variant_prices[<%= item.id.to_s %>] = <%= item.price  %>;
+    <% end %>
+
+    function calculate_rma_price(object, value){
+      var rma_amount = 0;
+
+      $.each($("td.return_quantity input"), function(i, inpt){
+        var unit_id = $(inpt).attr('id').replace("return_quantity_", "");
+         rma_amount += variant_prices[unit_id] * $(inpt).val()
+      });
+
+      if(!isNaN(rma_amount)){
+        $("span#rma_value").html(rma_amount.toFixed(2));
+      }
+    }
+
+    jQuery(document).ready(function(){
+      $.each($("td.return_quantity input"), function(i, inpt){
+        $(inpt).delayedObserver(function() {
+          calculate_rma_price();
+        }, 0.5);
+      });
+
+      calculate_rma_price();
+    });
+  </script>
+<% end %>

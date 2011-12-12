@@ -1,0 +1,76 @@
+<script language="javascript">
+    function toggle(source) {
+        checkboxes = document.getElementsByName('receive_product[line_item_ids][]');
+        for (var i in checkboxes)
+            checkboxes[i].checked = source.checked;
+    }
+</script>
+
+<table class="index">
+  <tbody id='line-items'>
+  <tr>
+    <%= hook :order_details_line_items_headers do %>
+        <th style="width: 2px;"><input type="checkbox" onClick="toggle(this)"/></th>
+        <th class="qty">Season</th>
+        <th class="qty">Team</th>
+        <th class="qty">Type</th>
+        <th class="qty">Name</th>
+        <th class="qty">Number</th>
+        <th class="qty">Size</th>
+        <th class="qty">Sleeve</th>
+        <th class="qty2">Patch</th>
+        <th class="qty" style="text-align: left;">Original PO</th>
+        <th class="qty"><%= t('qty') %></th>
+    <% end %>
+  </tr>
+
+  <% @line_items.each do |item| %>
+
+
+      <tr>
+        <%- locals = {:item => item} %>
+        <%= hook :order_details_line_item_row_xxxx, locals do %>
+            <!-- Hook -->
+            <td style="width: 2px;">
+              <%= check_box_tag "receive_product[line_item_ids][]", item.id, true,
+                                {:class => 'inventory_unit'} %>
+            </td>
+            <td class="qty">
+              <%= item.season unless item.season.empty? %>
+            </td>
+            <td class="qty">
+              <%= item.team unless item.team.empty? %>
+            </td>
+            <td class="qty">
+              <%= item.product_type unless item.product_type.empty? %>
+            </td>
+            <td class="qty">
+              <%= item.name unless item.name.empty? %>
+            </td>
+            <td class="qty">
+              <%= item.number unless item.number.empty? %>
+            </td>
+            <td class="qty">
+              <%= item.size unless item.size.empty? %>
+            </td>
+            <td class="qty">
+              <%= item.sleeve unless item.sleeve.empty? %>
+            </td>
+            <td style="width: auto;">
+              <%= item.patch unless item.patch.empty? %>
+            </td>
+            <td class="qty" style="width: 200px;font-weight: bold;color: red;text-align: left;">
+                          <%= item.original_po unless item.original_po.blank? %>
+                          <%= "by #{Purchase.find_by_number(item.original_po).supplier.name}" unless item.original_po.blank? %>
+                        </td>
+            <td class="qty">
+              <%= text_field_tag "receive_product[quantity][#{item.id}]", item.quantity, :style => "text-align: center;", :size => 10 %>
+            </td>
+
+        <% end %>
+      </tr>
+  <% end %>
+  </tbody>
+
+
+</table>
