@@ -13,7 +13,7 @@ class TicketsController < Spree::BaseController
       @ticket = Ticket.new(:user_id => current_user.id, :question_category_id => QuestionCategory.first.id)
       respond_with(@tickets)
     else
-      redirect_to :root
+      redirect_to :login
     end
   end
 
