@@ -1,33 +1,21 @@
+
+
 <div id="best-seller-sidebar">
   <div class="head-sidebar"></div>
   <div class="body-sidebar product-categories">
     <h2>Best Seller</h2>
     <span class="sidebar-header-line"></span>
-
-
     <div id="taxonomies" class="sidebar-item2">
       <ul>
-        <li>
-          <a href="#" class="root">1. Manchester United Away JONES No.4</a>
-        </li>
-        <li>
-          <a href="#">2. Manchester United Away ROONEY </a>
-        </li>
-        <li>
-          <a href="#">3. Barcelona Home Messi 10</a>
-        </li>
-        <li>
-          <a href="#">4. Real Madrid Home Ronaldo</a>
-        </li>
-        <li>
-          <a href="#">5. Liverpool Home </a>
-        </li>
+        <% @best_selling_variants.each_with_index do |v, i| %>
+            <li>
+              <p align="center"><%#= link_to("/products/#{v[0].permalink}") %><%= link_to(image_tag(Product.find(v[0].id).images.first.attachment.url(:mini)), "/products/#{v[0].permalink}") %></p>
+              <a href="/products/<%= v[0].permalink %>" class="root"><%= "#{i + 1}. "  %><%= truncate v[0].name, :length => 50 %><%= " : £#{v[0].price}" %></a>
 
-
+            </li>
+        <% end %>
       </ul>
     </div>
-
-
   </div>
   <div class="footer-sidebar"></div>
 </div>
