@@ -17,7 +17,7 @@
         <!-- product categories -->
         <%= render "shared/footballshirt/sidebar/cart_sidebar" %>
 
-        <% unless @best_selling_variants.nil? %>
+        <% unless @best_selling_variants.blank? %>
             <%= render "shared/top_seller" %>
         <% end %>
     </div>
