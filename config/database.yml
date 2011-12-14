@@ -11,9 +11,9 @@ development:
 #  reconnect: false
 #  database: footballshirt_production
 #  pool: 5
-#  username: root
+#  username: shop
 #  password: "!knu@"
-#  host: localhost
+#  host: 217.174.252.6
 
 
 # Warning: The database defined as "test" will be erased and
