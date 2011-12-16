@@ -22,5 +22,8 @@ App::Application.configure do
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
+
+  # Asset Host Configuration
+  ActionController::Base.asset_host = "shop1:3000"
 end
 
