@@ -48,6 +48,9 @@ App::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
+  # Asset Host Configuration
+  ActionController::Base.asset_host = "77.68.63.18"
+
   PDFKit.configure do |config|
     config.wkhtmltopdf = '/usr/local/bin/wkhtmltopdf'
     config.default_options = {
