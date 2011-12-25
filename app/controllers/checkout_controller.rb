@@ -94,6 +94,13 @@ class CheckoutController < Spree::BaseController
 
   def before_payment
     current_order.payments.destroy_all if request.put?
+
+    if Rails.env.production?
+      @payment_method = Preference.where(:value => request.host).first
+    else
+      @payment_method = Preference.where(:value => request.host_with_port).first
+    end
+
   end
 
   def after_complete
