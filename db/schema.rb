@@ -12,6 +12,24 @@
 
 ActiveRecord::Schema.define(:version => 20111204092039) do
 
+  create_table "_inventory_units_old_20111020", :force => true do |t|
+    t.integer  "variant_id"
+    t.integer  "order_id"
+    t.string   "state"
+    t.integer  "lock_version",            :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "shipment_id"
+    t.integer  "return_authorization_id"
+    t.integer  "purchase_id"
+    t.integer  "receive_product_id"
+    t.string   "path"
+    t.string   "name"
+    t.string   "number"
+    t.string   "size"
+    t.string   "patch"
+  end
+
   create_table "ad_hoc_option_types", :force => true do |t|
     t.integer  "product_id"
     t.integer  "option_type_id"
@@ -65,7 +83,7 @@ ActiveRecord::Schema.define(:version => 20111204092039) do
 
   create_table "adjustments", :force => true do |t|
     t.integer  "order_id"
-    t.decimal  "amount",          :precision => 8, :scale => 2
+    t.decimal  "amount"
     t.string   "label"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -106,7 +124,7 @@ ActiveRecord::Schema.define(:version => 20111204092039) do
 
   create_table "comments", :force => true do |t|
     t.string   "title",            :limit => 50, :default => ""
-    t.text     "comment"
+    t.text     "comment",                        :default => ""
     t.integer  "commentable_id"
     t.string   "commentable_type"
     t.integer  "user_id"
@@ -210,7 +228,7 @@ ActiveRecord::Schema.define(:version => 20111204092039) do
     t.string   "season"
     t.string   "team"
     t.string   "product_type"
-    t.string   "original_po",                                           :default => "",  :null => false
+    t.string   "original_po"
     t.integer  "return_product_id"
     t.decimal  "price",                   :precision => 8, :scale => 2, :default => 0.0, :null => false
     t.string   "sleeve",                                                :default => "",  :null => false
@@ -280,18 +298,18 @@ ActiveRecord::Schema.define(:version => 20111204092039) do
   create_table "orders", :force => true do |t|
     t.integer  "user_id"
     t.string   "number",               :limit => 15
-    t.decimal  "item_total",                         :precision => 8, :scale => 2, :default => 0.0, :null => false
-    t.decimal  "total",                              :precision => 8, :scale => 2, :default => 0.0, :null => false
+    t.decimal  "item_total",                         :default => 0.0, :null => false
+    t.decimal  "total",                              :default => 0.0, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "state"
-    t.decimal  "adjustment_total",                   :precision => 8, :scale => 2, :default => 0.0, :null => false
-    t.decimal  "credit_total",                       :precision => 8, :scale => 2, :default => 0.0, :null => false
+    t.decimal  "adjustment_total",                   :default => 0.0, :null => false
+    t.decimal  "credit_total",                       :default => 0.0, :null => false
     t.datetime "completed_at"
     t.integer  "store_id"
     t.integer  "bill_address_id"
     t.integer  "ship_address_id"
-    t.decimal  "payment_total",                      :precision => 8, :scale => 2, :default => 0.0
+    t.decimal  "payment_total",                      :default => 0.0
     t.integer  "shipping_method_id"
     t.string   "shipment_state"
     t.string   "payment_state"
@@ -337,7 +355,7 @@ ActiveRecord::Schema.define(:version => 20111204092039) do
     t.integer  "order_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "amount",            :precision => 8, :scale => 2, :default => 0.0, :null => false
+    t.decimal  "amount",            :default => 0.0, :null => false
     t.integer  "source_id"
     t.string   "source_type"
     t.integer  "payment_method_id"
@@ -355,11 +373,11 @@ ActiveRecord::Schema.define(:version => 20111204092039) do
 
   create_table "preferences", :force => true do |t|
     t.string   "name",       :limit => 100, :null => false
-    t.integer  "owner_id",                  :null => false
+    t.integer  "owner_id",   :limit => 30,  :null => false
     t.string   "owner_type", :limit => 50,  :null => false
     t.integer  "group_id"
     t.string   "group_type", :limit => 50
-    t.text     "value"
+    t.text     "value",      :limit => 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -576,6 +594,7 @@ ActiveRecord::Schema.define(:version => 20111204092039) do
     t.string   "number"
     t.text     "reason"
     t.decimal  "amount",      :precision => 8, :scale => 2, :default => 0.0, :null => false
+    t.string   "state"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -711,7 +730,7 @@ ActiveRecord::Schema.define(:version => 20111204092039) do
 
   create_table "tickets", :force => true do |t|
     t.string   "title",                :limit => 50, :default => ""
-    t.text     "comment"
+    t.text     "comment",                            :default => ""
     t.integer  "question_category_id"
     t.string   "status",                             :default => "open"
     t.integer  "user_id"
@@ -747,16 +766,16 @@ ActiveRecord::Schema.define(:version => 20111204092039) do
 
   create_table "users", :force => true do |t|
     t.string   "email"
-    t.string   "encrypted_password"
-    t.string   "password_salt"
+    t.string   "encrypted_password",   :limit => 128
+    t.string   "password_salt",        :limit => 128
     t.string   "remember_token"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "persistence_token"
     t.string   "reset_password_token"
     t.string   "perishable_token"
-    t.integer  "sign_in_count",        :default => 0, :null => false
-    t.integer  "failed_attempts",      :default => 0, :null => false
+    t.integer  "sign_in_count",                       :default => 0, :null => false
+    t.integer  "failed_attempts",                     :default => 0, :null => false
     t.datetime "last_request_at"
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
