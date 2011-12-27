@@ -11,7 +11,7 @@ class Admin::ShipmentsController < Admin::BaseController
   end
 
   def home
-    @orders = Order.where("shipment_state != 'shipped'")
+    @orders = Order.where(" shipment_state != 'shipped'  AND state LIKE 'complete'")
     respond_with(@orders)
   end
 
