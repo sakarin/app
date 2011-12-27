@@ -49,7 +49,7 @@ module Spree::BaseHelper
       else
         image = product.images.first
         options.reverse_merge! :alt => image.alt.blank? ? product.name : image.alt
-        image_tag image.attachment.url(style), options
+        image_tag "#{image.attachment.url(style)}", options
       end
     end
   end
