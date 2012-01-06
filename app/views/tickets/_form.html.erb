@@ -1,5 +1,6 @@
 <%- locals = {:f => f} -%>
 <%= f.hidden_field :user_id %>
+<%= f.hidden_field :store_id, :value => params[:current_store_id] %>
 <p class="admin_line_items_show_details">
   <%= f.label :title, t("title") %><br/>
   <%= f.text_field :title, :class => 'fullwidth',:style => "width:300px;" %>

@@ -12,6 +12,7 @@
               <%= hidden_field_tag 'comment[commentable_id]', commentable.id %>
               <%= hidden_field_tag 'comment[commentable_type]', commentable.class %>
               <%= hidden_field_tag 'comment[user_id]', current_user.id %>
+              <%= hidden_field_tag 'comment[store_id]', params[:current_store_id] %>
 
               <table class="index">
                 <thead>
