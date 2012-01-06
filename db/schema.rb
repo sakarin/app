@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111204092039) do
+ActiveRecord::Schema.define(:version => 20120106020217) do
 
   create_table "_inventory_units_old_20111020", :force => true do |t|
     t.integer  "variant_id"
@@ -123,13 +123,16 @@ ActiveRecord::Schema.define(:version => 20111204092039) do
   end
 
   create_table "comments", :force => true do |t|
-    t.string   "title",            :limit => 50, :default => ""
-    t.text     "comment",                        :default => ""
+    t.string   "title",                   :limit => 50, :default => ""
+    t.text     "comment",                               :default => ""
     t.integer  "commentable_id"
     t.string   "commentable_type"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "attachment_file_name"
+    t.string   "attachment_content_type"
+    t.integer  "attachment_file_size"
   end
 
   create_table "configurations", :force => true do |t|
@@ -729,13 +732,16 @@ ActiveRecord::Schema.define(:version => 20111204092039) do
   add_index "taxons", ["taxonomy_id"], :name => "index_taxons_on_taxonomy_id"
 
   create_table "tickets", :force => true do |t|
-    t.string   "title",                :limit => 50, :default => ""
-    t.text     "comment",                            :default => ""
+    t.string   "title",                   :limit => 50, :default => ""
+    t.text     "comment",                               :default => ""
     t.integer  "question_category_id"
-    t.string   "status",                             :default => "open"
+    t.string   "status",                                :default => "open"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "attachment_file_name"
+    t.string   "attachment_content_type"
+    t.integer  "attachment_file_size"
   end
 
   create_table "tokenized_permissions", :force => true do |t|
