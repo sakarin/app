@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120106020217) do
+ActiveRecord::Schema.define(:version => 20120106033610) do
 
   create_table "_inventory_units_old_20111020", :force => true do |t|
     t.integer  "variant_id"
@@ -133,6 +133,7 @@ ActiveRecord::Schema.define(:version => 20120106020217) do
     t.string   "attachment_file_name"
     t.string   "attachment_content_type"
     t.integer  "attachment_file_size"
+    t.integer  "store_id"
   end
 
   create_table "configurations", :force => true do |t|
@@ -742,6 +743,7 @@ ActiveRecord::Schema.define(:version => 20120106020217) do
     t.string   "attachment_file_name"
     t.string   "attachment_content_type"
     t.integer  "attachment_file_size"
+    t.integer  "store_id"
   end
 
   create_table "tokenized_permissions", :force => true do |t|
