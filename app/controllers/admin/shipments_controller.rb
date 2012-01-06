@@ -51,7 +51,9 @@ class Admin::ShipmentsController < Admin::BaseController
   end
 
   def download
-    @files = ShipmentFile.find(:all, :order => "created_at DESC")
+    @files = ShipmentFile.find(:all, :order => "created_at DESC").paginate(
+        :per_page => Spree::Config[:orders_per_page],
+        :page => params[:page])
   end
 
   def new

@@ -17,7 +17,9 @@ gem 'spree_flexi_variants', :path => "vendor/extensions/spree_flexi_variants/"
 
 gem "pdfkit"
 
-gem "wkhtmltopdf-binary"
+
+
+gem "wkhtmltopdf-osx"
 
 gem "will_paginate"
 
@@ -34,8 +36,11 @@ gem "acts_as_commentable"
 
 gem "spreadsheet", "~> 0.6.5.9"
 
+gem 'to_xls'
+
 group :production do
   gem 'mysql2','< 0.3'
+  gem "wkhtmltopdf-binary"
 end
 
 

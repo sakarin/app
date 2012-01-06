@@ -97,20 +97,30 @@ class Admin::PurchasesController < Admin::BaseController
 
     @line_items = InventoryUnit.where(:purchase_id => @purchase.id).select("id, variant_id as variant_id, count(variant_id) as quantity, name, number, size, patch, state, season, team, product_type, original_po, sleeve").group("variant_id, name, number, size, patch, season, team, product_type, original_po, sleeve").order("original_po DESC")
 
-    # create purchase file to table
-    PurchaseFile.create(:file_name => @purchase.number)
+    #generate excel file
+    ToXls::ArrayWriter.new(@line_items, :name => 'purchase', :columns => [:season, :team, :product_type, :name, :number, :size, :sleeve, :patch, :quantity], :headers => ['Season', 'Team', 'Type', 'Number', 'Number', 'Size', 'Sleeve', 'Patch', 'Qty']).write_io("#{Rails.root}/public/assets/pdf/purchases/#{@purchase.number}.xls")
 
+    #update excel file_name to data base
+    purchase_file = PurchaseFile.find_by_file_name(@purchase.number)
+    if purchase_file.blank?
+        PurchaseFile.create(:file_name => @purchase.number)
+    end
+
+    #generate pdf
     html = render_to_string(:layout => "report.html.erb", :action => "show.html.erb")
     kit = PDFKit.new(html)
     kit.stylesheets << "#{Rails.root}/public/stylesheets/report/print.css"
 
     send_data(kit.to_pdf, :filename => "#{@purchase.number}.pdf", :type => 'application/pdf')
     kit.to_file("#{Rails.root}/public/assets/pdf/purchases/#{@purchase.number}.pdf")
+
   end
 
   def download
 
-    @files = PurchaseFile.find(:all, :order => "created_at DESC")
+    @files = PurchaseFile.find(:all, :order => "created_at DESC").paginate(
+        :per_page => Spree::Config[:orders_per_page],
+        :page => params[:page])
   end
 
   private

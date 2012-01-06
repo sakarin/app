@@ -4,15 +4,18 @@
   <tr>
     <%= hook :admin_purchases_index_headers do %>
         <th width="200px;"><%= "#{t('spree.date')}/#{t('spree.time')}" %></th>
-        <th><%= "Files" %></th>
+        <th  width="200px;"><%= "PDF" %></th>
+        <th></th>
     <% end %>
 
   </tr>
   <% @files.each do |file| %>
       <tr>
         <td><%= file.created_at.to_s(:date_time24) if file.created_at %></td>
-        <td><%= link_to "#{file.file_name}.pdf", "/assets/pdf/shipments/#{file.file_name}.pdf" %></td>
+        <td><%= link_to_with_icon "pdf", "#{file.file_name}", "/assets/pdf/shipments/#{file.file_name}.pdf" %></td>
+        <td></td>
       </tr>
   <% end %>
 </table>
 
+<%= will_paginate(@files, :previous_label => "&#171; #{t('previous')}", :next_label => "#{t('next')} &#187;") %>

@@ -190,6 +190,9 @@ GEM
     state_machine (0.9.4)
     stringex (1.0.3)
     thor (0.14.6)
+    to_xls (1.0.0)
+      spreadsheet (> 0)
+      spreadsheet
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
@@ -198,6 +201,7 @@ GEM
       rack (>= 1.0)
     will_paginate (3.0.pre2)
     wkhtmltopdf-binary (0.9.5.3)
+    wkhtmltopdf-osx (0.1.1)
 
 PLATFORMS
   ruby
@@ -219,5 +223,7 @@ DEPENDENCIES
   spree_paypal_express!
   spree_static_content!
   sqlite3
+  to_xls
   will_paginate
   wkhtmltopdf-binary
+  wkhtmltopdf-osx
