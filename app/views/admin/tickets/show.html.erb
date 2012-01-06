@@ -15,7 +15,7 @@
         <strong><%= @ticket.user.email %> said :</strong>
       </div>
       <div class="order-comment-body" id="order-comment-body-0">
-        <%= @ticket.comment %>
+        <%= raw @ticket.comment %>
       </div>
     </td>
   </tr>

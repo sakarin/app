@@ -15,6 +15,9 @@ class Admin::CommentsController < Admin::BaseController
     end
 
     @ticket = Ticket.find(@comment.commentable_id)
+    if params[:ticket] == "Close"
+      @ticket.update_attributes(:status => "close")
+    end
     redirect_to admin_ticket_path(@ticket)
 
   end

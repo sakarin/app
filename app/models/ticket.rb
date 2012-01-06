@@ -6,6 +6,10 @@ class Ticket < ActiveRecord::Base
   belongs_to :question_category
   belongs_to :user
 
+  has_attached_file :attachment, :path => ":rails_root/public/assets/tickets/:id/:basename.:extension"
+
   scope :by_customer, lambda {|customer| joins(:user).where("users.email =?", customer)}
+
+  validates_presence_of :title
 
 end

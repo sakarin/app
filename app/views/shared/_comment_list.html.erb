@@ -15,6 +15,11 @@
         <div id="order-comment-body-<%= index %>" class="order-comment-body">
           <%= comment.comment.html_safe %>
         </div>
+        <div class="order-comment-body" id="order-comment-body-0">
+          <% unless comment.attachment_file_name.blank?  %>
+              <%= image_tag "/assets/comments/#{comment.id}/#{comment.attachment_file_name}" %>
+          <% end %>
+        </div>
       </td>
     </tr>
   <% end %>

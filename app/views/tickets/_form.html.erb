@@ -10,8 +10,14 @@
 </p>
 
 <p class="admin_line_items_show_details">
+
   <%= f.label :comment, t("comment") %><br/>
-  <%= f.text_area :comment, {:style => 'height:150px;', :class => 'fullwidth', :rows=>10, :style => "width:310px;border: 1px #CCC solid;"} %>
+  <%= f.text_area :comment, {:style => 'height:150px;', :class => 'fullwidth', :rows=>10, :style => "width:500px;border: 1px #CCC solid;"} %>
+</p>
+
+<p class="admin_line_items_show_details">
+  <%= f.label :attachment, "Attachment" %><br/>
+  <%= f.file_field :attachment %><br/>
 </p>
 
 

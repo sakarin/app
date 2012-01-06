@@ -40,7 +40,7 @@
       <div class="customize" style="margin-top: 30px;">
 
         <h1 style="padding-top:0;"><%= t("new_ticket") %></h1>
-        <%= form_for(@ticket, :url => tickets_path) do |f| %>
+        <%= form_for(@ticket, :url => tickets_path, :html => { :multipart => true }) do |f| %>
             <%= render :partial => "form", :locals => {:f => f} %>
 
 
