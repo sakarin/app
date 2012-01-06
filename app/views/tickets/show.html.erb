@@ -21,7 +21,12 @@
               <strong><%= @ticket.user.email %> said :</strong>
             </div>
             <div class="order-comment-body" id="order-comment-body-0">
-              <%= @ticket.comment %>
+              <%= raw @ticket.comment %>
+            </div>
+            <div class="order-comment-body" id="order-comment-body-0">
+              <% unless @ticket.attachment_file_name.blank?  %>
+                <%= image_tag "/assets/tickets/#{@ticket.id}/#{@ticket.attachment_file_name}" %>
+              <% end %>
             </div>
           </td>
         </tr>
