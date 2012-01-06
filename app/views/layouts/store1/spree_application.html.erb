@@ -48,7 +48,7 @@
         var Dom = YAHOO.util.Dom,
   	        Event = YAHOO.util.Event;
         var myConfig = { dompath: true };
-        var ids = ['product_description', 'page_body'];
+        var ids = ['product_description', 'page_body', 'ticket_comment', 'comment_comment'];
         $.each(ids, function(index, id) {
             if ($('textarea#' + id).length) {
                 var state = 'off';
@@ -58,10 +58,10 @@
                     animate: true,
                     handleSubmit: true,
                     toolbar: {
-                        collapse: true,
+                        collapse: false,
                         titlebar: false,
                         draggable: false,
-                        buttonType: 'advanced',
+
                         buttons: [
                             { group: 'fontstyle', label: 'Font Name and Size',
                                 buttons: [
@@ -149,7 +149,10 @@
                             }
 
                         ]
-                    }
+
+
+                    }     ,
+                    toolbar: false
                 });
 
                 newEditor.addListener('editorContentLoaded', function() {

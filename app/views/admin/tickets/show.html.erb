@@ -15,7 +15,7 @@
         <strong><%= @ticket.user.email %> said :</strong>
       </div>
       <div class="order-comment-body" id="order-comment-body-0">
-        <%= raw @ticket.comment %>
+        <%= @ticket.comment.html_safe %>
       </div>
       <div class="order-comment-body" id="order-comment-body-0">
         <% unless @ticket.attachment_file_name.blank?  %>
