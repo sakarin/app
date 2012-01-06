@@ -17,6 +17,11 @@
       <div class="order-comment-body" id="order-comment-body-0">
         <%= raw @ticket.comment %>
       </div>
+      <div class="order-comment-body" id="order-comment-body-0">
+        <% unless @ticket.attachment_file_name.blank?  %>
+            <%= image_tag "http://#{Store.find(@ticket.store_id).domains}/assets/tickets/#{@ticket.id}/#{@ticket.attachment_file_name}" %>
+        <% end %>
+      </div>
     </td>
   </tr>
   </tbody>
