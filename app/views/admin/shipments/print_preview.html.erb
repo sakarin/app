@@ -17,18 +17,21 @@
 <% @shipments.each do |shipment| %>
     <%- locals = {:shipment => shipment} %>
 
-    <%= hook :admin_order_show_details, locals do %>
-        <%= render :partial => 'admin/shipments/print_form', :locals => {:shipment => shipment} %>
-    <% end %>
+    <% unless shipment.inventory_units.blank? %>
+        <%= hook :admin_order_show_details, locals do %>
+            <%= render :partial => 'admin/shipments/print_form', :locals => {:shipment => shipment} %>
+        <% end %>
 
-    <% if shipment.order.ship_address %>
-        <div class='adr'>
-          <h4><%= t("ship_address") %></h4>
-          <%= render :partial => 'admin/shared/address', :locals => {:address => shipment.order.ship_address} %>
-        </div>
-        <div style="float: right;">
-          <%= shipment.number if shipment.number %>
-        </div>
+
+        <% if shipment.order.ship_address %>
+            <div class='adr'>
+              <h4><%= t("ship_address") %></h4>
+              <%= render :partial => 'admin/shared/address', :locals => {:address => shipment.order.ship_address} %>
+            </div>
+            <div style="float: right; font-weight: bold;">
+              <%= shipment.number if shipment.number %>
+            </div>
+        <% end %>
     <% end %>
     <hr/>
 
