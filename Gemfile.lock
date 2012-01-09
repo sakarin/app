@@ -201,7 +201,6 @@ GEM
       rack (>= 1.0)
     will_paginate (3.0.pre2)
     wkhtmltopdf-binary (0.9.5.3)
-    wkhtmltopdf-osx (0.1.1)
 
 PLATFORMS
   ruby
@@ -226,4 +225,3 @@ DEPENDENCIES
   to_xls
   will_paginate
   wkhtmltopdf-binary
-  wkhtmltopdf-osx
