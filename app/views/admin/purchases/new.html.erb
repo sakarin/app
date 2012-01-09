@@ -16,9 +16,15 @@
     <% end %>
 
     <%= hook :admin_purchase_new_form_buttons do %>
-        <p class="form-buttons">
-          <%= button t('create') %>
-        </p>
+        <% unless @line_items.blank? %>
+            <p class="form-buttons">
+              <%= button t('create') %>
+            </p>
+        <% else %>
+            <p class="form-buttons">
+              <%= link_to raw("&laquo; #{t("back")}"), admin_purchases_url %>
+            </p>
+        <% end %>
     <% end %>
 
 

@@ -19,7 +19,7 @@ gem "pdfkit"
 
 
 
-gem "wkhtmltopdf-osx"
+gem "wkhtmltopdf-binary"
 
 gem "will_paginate"
 
@@ -40,7 +40,6 @@ gem 'to_xls'
 
 group :production do
   gem 'mysql2','< 0.3'
-  gem "wkhtmltopdf-binary"
 end
 
 
