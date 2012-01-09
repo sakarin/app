@@ -21,6 +21,8 @@ gem "pdfkit"
 
 gem "wkhtmltopdf-binary"
 
+
+
 gem "will_paginate"
 
 gem 'spree_faq', :path => "vendor/extensions/spree_faq/"
@@ -39,7 +41,9 @@ gem "spreadsheet", "~> 0.6.5.9"
 gem 'to_xls'
 
 group :production do
+
   gem 'mysql2','< 0.3'
+
 end
 
 

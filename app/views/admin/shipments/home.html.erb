@@ -18,28 +18,28 @@
 <% @orders.each do |order| %>
 
     <%= form_for(order.shipment, :url => new_admin_order_shipment_path(order), :html => {:method => :post}) do |shipment_form| %>
-        <table class="index" style="width:100%;">
+        <table class="index" style="width:100%; ">
           <tr>
-            <th style="text-align: center;"><%= "Order" %></th>
-            <th style="text-align: center;"><%= "Purchase" %></th>
-            <th style="text-align: center;"><%= "Shipment" %></th>
+            <th style="text-align: center;min-width: 65px;"><%= "Order" %></th>
+            <th style="text-align: center;min-width: 65px;"><%= "Purchase" %></th>
+            <th style="text-align: center;min-width: 65px;"><%= "Shipment" %></th>
             <th></th>
 
-            <th class="qty">Season</th>
-            <th class="qty">Team</th>
-            <th class="qty">Type</th>
-            <th class="qty">Name</th>
-            <th class="qty">Number</th>
-            <th class="qty">Size</th>
-            <th class="qty">Sleeve</th>
-            <th class="qty">Patch</th>
+            <th class="shipment-table">Season</th>
+            <th class="shipment-table">Team</th>
+            <th class="shipment-table">Type</th>
+            <th class="shipment-table">Name</th>
+            <th class="shipment-table">Number</th>
+            <th class="shipment-table">Size</th>
+            <th class="shipment-table">Sleeve</th>
+            <th class="shipment-table">Patch</th>
 
 
-            <th><%= t('status') %></th>
+            <th class="shipment-table"><%= t('status') %></th>
 
-            <th width="300px;" style="text-align: right;vertical-align: center; font-size: 12px;">
+            <th style="text-align: right;vertical-align: center; font-size: 12px;">
 
-              <%#= button t('new_shipment'),  'add',  %>
+
 
               <button type="submit" style="font-size: 12px;background: none;height: 20px;">
                 <span style="background: none;line-height: 20px;color: #666;text-shadow: 0 0 0;"><img src="/images/admin/icons/add.png?1318254263" alt="Add"> New Shipment</span>
@@ -50,18 +50,18 @@
 
 
           <% #order.shipment.order.inventory_units.order("shipment_id ASC").each do |item| %>
-          <% order.shipment.order.inventory_units.each do |item| %>
+          <% order.shipment.order.inventory_units.order("state DESC").each do |item| %>
 
               <tr>
-                <td width="50" style="text-align: center;"><%= order.number %></td>
-                <td width="50" style="text-align: center;">
+                <td style="text-align: center; min-width: 65px;"><%= order.number %></td>
+                <td style="text-align: center; min-width: 65px;">
                   <% unless item.purchase.nil? %>
                       <%= link_to item.purchase.number, edit_admin_purchase_path(item.purchase) %>
                   <% else %>
                       -
                   <% end %>
                 </td>
-                <td width="50" style="text-align: center;">
+                <td style="text-align: center; min-width: 65px;">
                   <% unless item.shipment.nil? %>
                       <%= link_to item.shipment.number, edit_admin_order_shipment_url(item.order, item.shipment) %>
                   <% else %>
@@ -101,7 +101,13 @@
                   <%= item.patch unless item.patch.blank? %>
                 </td>
 
-                <td><%= t(item.state) %></td>
+                <td>
+                    <% if item.state == "canceled" %>
+                      <span style="color: #ff0000;"><%= t(item.state) %></span>
+                    <% else %>
+                      <%= t(item.state) %>
+                    <% end %>
+                </td>
 
                 <td></td>
               </tr>

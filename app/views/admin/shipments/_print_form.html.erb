@@ -1,14 +1,14 @@
 <table class="index">
   <tbody id='line-items'>
   <tr>
-    <th class="qty">Season</th>
-    <th class="qty">Team</th>
-    <th class="qty">Type</th>
-    <th class="qty">Name</th>
-    <th class="qty">Number</th>
-    <th class="qty">Size</th>
-    <th class="qty">Sleeve</th>
-    <th class="qty">Patch</th>
+    <th class="qty" style="text-align: left;">Season</th>
+    <th class="qty" style="text-align: left;">Team</th>
+    <th class="qty" style="text-align: left;">Type</th>
+    <th class="qty" style="text-align: left;">Name</th>
+    <th class="qty" style="text-align: left;">Number</th>
+    <th class="qty" style="text-align: left;">Size</th>
+    <th class="qty" style="text-align: left;">Sleeve</th>
+    <th class="qty" style="text-align: left;">Patch</th>
   </tr>
 
 
@@ -18,7 +18,7 @@
         <td>
           <%= item.season unless item.season.blank? %>
         </td>
-        <td width="100">
+        <td>
           <%= item.team unless item.team.blank? %>
         </td>
         <td>
@@ -33,14 +33,15 @@
         <td>
           <%= item.size unless item.size.blank? %>
         </td>
-         <td width="200">
+         <td>
           <%= item.sleeve unless item.sleeve.blank? %>
         </td>
-        <td width="200">
+        <td>
           <%= item.patch unless item.patch.blank? %>
         </td>
 
       </tr>
+
   <% end %>
 
   </tbody>

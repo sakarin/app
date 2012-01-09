@@ -53,4 +53,8 @@ class Purchase < ActiveRecord::Base
     self.number
   end
 
+  def after_received
+
+  end
+
 end
