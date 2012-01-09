@@ -4,7 +4,9 @@
         <h1><%= t(:purchase) + " #{@purchase.number}" %></h1>
       </div>
       <div class='toolbar'>
-        <%= button_link_to(t("print_purchase"), admin_purchase_url(@purchase, :format => "pdf"), :method => :get, :target => '_blank', :icon => 'pdf') %>
+        <% if @purchase.state == "purchasing" %>
+            <%= button_link_to(t("print_purchase"), admin_purchase_url(@purchase, :format => "pdf"), :method => :get, :target => '_blank', :icon => 'pdf') %>
+        <% end %>
       </div>
   <% end %>
 </div>
