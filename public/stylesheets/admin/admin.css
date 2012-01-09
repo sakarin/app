@@ -653,3 +653,7 @@ span.handle{
     float: left;
     margin-top:15px;
 }
+
+.shipment-table{
+    min-width: 65px;
+}

@@ -41,8 +41,6 @@ class Admin::ReceiveProductsController < Admin::BaseController
 
         inventory_units.each do |item|
           item.update_attributes(:receive_product_id => @receive_product.id, :state => "sold")
-
-
         end
 
         # update purchase state to received
