@@ -414,7 +414,7 @@ en:
   general: "General"
   general_settings: "General Settings"
   edit_general_settings: "Edit General Settings"
-  general_settings_description: "Configure general Spree settings."
+  general_settings_description: "Configure general settings."
   google_analytics: "Google Analytics"
   google_analytics_active: "Active"
   google_analytics_create: "Create New Google Analytics Account"
