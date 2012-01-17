@@ -7,6 +7,9 @@
     <td><label><%=t("code")%></label></td>
     <td><%= text_field :store, :code, {"style" => "width:50px"} %></td>
   </tr>
+
+
+
   <tr>
     <td><label><%= t("default") %></label></td>
     <td>
@@ -26,6 +29,10 @@
   </tr>
   <tr>
     <td><label><%=t("domains")%></label></td>
-    <td><%= text_area :store, :domains, {:cols => 60, :rows => 4} %></td>
+    <td><%= text_field :store, :domains, {"style" => "width:250px"} %></td>
+  </tr>
+  <tr>
+    <td><label><%= t("default_seo_title") %></label></td>
+    <td><%= text_area :store, :seo_title, {:cols => 60, :rows => 2}  %></td>
   </tr>
 </table>
