@@ -9,24 +9,25 @@ CheckoutController.class_eval do
   #- Check Store Before Sent Data To Paypal
   #---------------------------------------------------------------------------
   def paypal_account
-
-    @payment_method = Preference.where("owner_type = ? And value = ?", "PaymentMethod", request.host).first
-
-    #-------------------
-    # main store == fake shop
-    #-------------------
-    if @payment_method.name == 'main_store'
-      params[:host_with_port] = request.host_with_port
+    if Rails.env == "production"
+      @preferences = Preference.where(:value => request.host , :owner_type => "PaymentMethod").to_a
+      @preferences.each do |item|
+        preference = Preference.where(:name => "server", :value => 'live' , :owner_type => "PaymentMethod", :owner_id => item.owner_id).first
+        unless preference.nil?
+          params[:payment_method_id] = preference.owner_id
+          params[:host_with_port] =   Preference.where("name = ? And owner_id = ?", "main_store", preference.owner_id).first.value
+        end
+      end
     else
-      @preference = Preference.where("name = ? And owner_id = ?", "main_store", @payment_method.owner_id).first
-      if Rails.env == "production"
-        params[:host_with_port] = @preference.value
-      else
-        params[:host_with_port] = @preference.value + ":3000"
+      @preferences = Preference.where(:value => request.host , :owner_type => "PaymentMethod").to_a
+      @preferences.each do |item|
+        preference = Preference.where(:name => "server", :value => 'test' , :owner_type => "PaymentMethod", :owner_id => item.owner_id).first
+        unless preference.nil?
+          params[:payment_method_id] = preference.owner_id
+          params[:host_with_port] =   Preference.where("name = ? And owner_id = ?", "main_store", preference.owner_id).first.value.to_s + ":" + request.port.to_s
+        end
       end
     end
-
-    params[:payment_method_id] = @payment_method.owner_id
 
   rescue
 

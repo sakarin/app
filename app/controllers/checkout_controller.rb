@@ -94,10 +94,6 @@ class CheckoutController < Spree::BaseController
 
   def before_payment
     current_order.payments.destroy_all if request.put?
-
-    @payment_method = Preference.where(:value => request.host, :owner_type => "PaymentMethod").first
-
-
   end
 
   def after_complete
