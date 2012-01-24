@@ -13,7 +13,7 @@ class SpreeMultiDomainHooks < Spree::ThemeSupport::HookListener
   replace :additional_tracker_fields, 'admin/trackers/store'
 
   insert_after :admin_configurations_menu do
-    "<%= configurations_menu_item(I18n.t('stores_admin'), admin_stores_url, I18n.t('manage_stores')) %>"
+    "<%= configurations_menu_item(I18n.t('stores_admin'), admin_stores_path, I18n.t('manage_stores')) %>"
   end
 
 end
