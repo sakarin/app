@@ -1,0 +1,14 @@
+            <div id="categories-sidebar">
+                <div class="head-sidebar"></div>
+                <div class="body-sidebar product-categories">
+                    <h2>Product Categories</h2>
+                    <span class="sidebar-header-line"></span>
+                    <%# if content_for?(:sidebar) %>
+                        <%= hook :sidebar do %>
+                            <%= yield :sidebar %>
+                        <% end %>
+                    <%# end %>
+                </div>
+                <div class="footer-sidebar"></div>
+            </div>
+            <!-- product categories -->

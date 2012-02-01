@@ -40,7 +40,7 @@ class ProductsController < Spree::BaseController
   end
 
   def best_selling_variants
-    li = LineItem.includes(:order).where("orders.state = 'complete'").sum(:quantity, :group => :variant_id, :limit => 5)
+    li = LineItem.includes(:order).where("orders.state = 'complete'").sum(:quantity, :group => :variant_id, :limit => 10)
     variants = li.map do |v|
       variant = Variant.find(v[0])
       [variant, v[1]]
