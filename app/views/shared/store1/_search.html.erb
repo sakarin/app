@@ -1,0 +1,13 @@
+<% 
+	#@taxons = @taxon && @taxon.parent ? @taxon.parent.children : Taxon.roots  
+%> 
+<%= form_tag products_url, :method => :get ,:class =>"search-box" do %>
+  <%
+   # select_tag :taxon, 
+   #     options_for_select([[t(:all_departments), '']] + 
+   #                           @taxons.map {|t| [t.name, t.id]}, 
+   #                         @taxon ? @taxon.id : params[:taxon]) 
+   %>
+  <p><%= text_field_tag :keywords, params[:keywords] %></p>
+  <%= submit_tag t(:search), :name => nil %>
+<% end %>

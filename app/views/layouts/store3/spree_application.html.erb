@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <%= hook :inside_head do %>
+      <%= render :partial => 'shared/store3/head' %>
+  <% end %>
+</head>
+
+<body onload="MM_preloadImages('/images/store3/b-SIGN-IN-a.png','/images/store3/b-quick-search-a.png','/images/store3/b-1-a.png','/images/store3/b-2-a.png','/images/store3/b-3-a.png','/images/store3/b-4-a.png','/images/store3/b-5-a.png','/images/store3/b-add-to-cart-a.png')">
+
+<div id="heading">
+
+  <div class="sign_in">
+    <%= render 'shared/store3/sign_in' %>
+  </div>
+
+  <div class="logo"><a href="#"><img src="/images/store3/logo.png" alt="logo" width="230" height="230" border="0"/></a>
+  </div>
+
+  <div class="currency_estimator"><a href="#" title="Currency Estimator">Currency Estimator</a></div>
+
+  <div class="quick_search">
+
+    <div class="quick_search2">
+      <p>Quick Search.</p>
+
+      <div>
+        <div class="quick-search-forms1">
+          <%= render 'shared/store3/search' %>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="shopping-cart">
+    <div class="shopping_cart2">
+      <p>Shopping Cart.</p>
+
+      <div><img src="/images/store3/line-shopping-cart.png" width="259" height="1"/></div>
+      <div class="space_bottom_top">NO Product.<strong class="float_right">$ 25.00</strong></div>
+      <div><img src="/images/store3/line-shopping-cart.png" width="259" height="1"/></div>
+      <div class="space_bottom_top">Shipping Cost.<strong class="float_right">$ 13.00</strong></div>
+      <div><img src="/images/store3/line-shopping-cart.png" width="259" height="1"/></div>
+      <div class="space_bottom_top">Total Cost.<strong class="float_right">$ 32.00</strong></div>
+    </div>
+  </div>
+
+
+</div>
+
+<div id="menu_main">
+  <ul class="space_menu">
+    <li><a href="/" title="HOME">HOME</a></li>
+    <li><img class="space_menu2" src="/images/store3/line-menu-main.png" width="4" height="35"/></li>
+    <li><a href="/legal-info" title="TERMS&amp;CONDITIONS">TERMS & CONDITIONS</a></li>
+    <li><img class="space_menu2" src="/images/store3/line-menu-main.png" width="4" height="35"/></li>
+    <li><a href="/shipping-and-return" title="SHIPPING&amp;RETURN">SHIPPING & RETURN</a></li>
+    <li><img class="space_menu2" src="/images/store3/line-menu-main.png" width="4" height="35"/></li>
+    <li><a href="#" title="SPECIAL OFFER">SPECIAL OFFER</a></li>
+    <li><img class="space_menu2" src="/images/store3/line-menu-main.png" width="4" height="35"/></li>
+    <li><a href="/faq" title="FAQs">FAQs</a></li>
+    <li><img class="space_menu2" src="/images/store3/line-menu-main.png" width="4" height="35"/></li>
+    <li><a href="/about-us" title="CONTACT US">CONTACT US</a></li>
+  </ul>
+</div>
+
+
+
+
+
+
+<% if flash.notice %>
+    <div class="flash notice"><%= flash.notice %></div>
+<% end %>
+<% if flash[:error] %>
+    <div class="flash errors"><%= flash[:error] %></div>
+<% end %>
+
+<%= yield %>
+
+
+<%= render :partial => 'shared/store3/footer' %>
+
+<%= debug(params) if Rails.env.development? %>
+
+</body>
+</html>

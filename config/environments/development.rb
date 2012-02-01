@@ -24,6 +24,8 @@ App::Application.configure do
   config.action_dispatch.best_standards_support = :builtin
 
   # Asset Host Configuration
-  ActionController::Base.asset_host = "shop1:3000"
+
+  ActionController::Base.asset_host = "localhost:3000"
+
 end
 

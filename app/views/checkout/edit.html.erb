@@ -2,37 +2,9 @@
   <%= javascript_include_tag  'checkout', '/states' %>
 <% end %>
 
-<% if params[:current_store_id] == 1 %>
+<% unless @current_store.default? %>
+    <%= render "shared/#{@current_store.code}/checkout_edit" %>
 
-    <div class="grid_16" style="margin-left: 0px;margin-right:0px;width: 960px;">
-         <div id="body_content">
-            <div class="top-box-960"></div>
-                <div class="title-960">
-                    <h1><%= t("checkout")%></h1>
-                </div>
-            <div class="content-960 clearfix">
-                <div id="checkout" class="clearfix">
-                    <%= checkout_progress %>
-                </div>
-                    <%= render "shared/error_messages", :target => @order %>
-
-                    <%= hook :checkout_summary_box do %>
-                        <div id="checkout-summary" class="clearfix">
-                            <%= render 'summary', :order => @order %>
-                            <div class="clear"></div>
-                        </div>
-                    <% end %>
-
-                    <%= form_for @order, :url => update_checkout_path(@order.state), :html => { :id => "checkout_form_#{@order.state}" } do |form| %>
-                        <%= render @order.state, :form => form %>
-                        <input id="post-final" type="submit" style="display:none"/>
-                    <% end %>
-
-            <div class="clear"></div>
-            </div>
-            <div class="footer-960"></div>
-         </div>
-    </div>
 <% else %>
     <div id="checkout">
       <h1><%= t("checkout")%></h1>

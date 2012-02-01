@@ -1,60 +1,64 @@
-
 <% content_for :sidebar do %>
-  <%= hook :homepage_sidebar_navigation do %>
-    <% if params[:current_store_id] == 1 %>
-        <% if "products" == @current_controller && @taxon %>
-            <%= render "shared/filters" %>
+    <%= hook :homepage_sidebar_navigation do %>
+        <% unless @current_store.default? %>
+            <% if "products" == @current_controller && @taxon %>
+                <%= render "shared/filters" %>
+            <% else %>
+                <%= render "shared/taxonomies" %>
+            <% end %>
         <% else %>
             <%= render "shared/taxonomies" %>
         <% end %>
-    <% else %>
-        <%= render "shared/taxonomies" %>
     <% end %>
-  <% end %>
 <% end %>
 
 
 <% if params[:keywords] %>
 
-  <%= hook :search_results do %>
-    <% if @products.empty? %>
-        <% if params[:current_store_id] == 1 %>
-            <%= render "shared/footballshirt/sidebar_left" %>
-                <div class="grid_13" style="margin-right: 0;width:770px;">
-                   <%= render "shared/footballshirt/no_products_search" %>
+    <%= hook :search_results do %>
+        <% if @products.empty? %>
+            <% unless @current_store.default? %>
+                <div id="content">
+                  <%= render "shared/#{@current_store.code}/sidebar_left" %>
+                  <%= render "shared/#{@current_store.code}/banner" %>
                 </div>
-                <!-- grid_10 body_content -->
+                <div id="content">
+                  <%= render "shared/#{@current_store.code}/no_products_search" %>
+                </div>
+            <% else %>
+                <%= t(:no_products_found) %>
+            <% end %>
         <% else %>
-            <%= t(:no_products_found) %>
-        <% end %>
-    <% else %>
-        <% if params[:current_store_id] == 1 %>
-            <%= render "shared/footballshirt/sidebar_left" %>
-            <div class="grid_13" style="margin-right: 0;width:770px;">
-                <%= render "shared/footballshirt/products_search", :products => @products, :taxon => @taxon %>
-            </div>
-            <!-- grid_10 body_content -->
-        <% else %>
-            <%= render "shared/products", :products => @products, :taxon => @taxon %>
+            <% unless @current_store.default? %>
+                <div id="content">
+                  <%= render "shared/#{@current_store.code}/sidebar_left" %>
+                  <%= render "shared/#{@current_store.code}/banner" %>
+                </div>
+                <div id="content">
+                  <%= render "shared/#{@current_store.code}/products_search", :products => @products, :taxon => @taxon %>
+                </div>
+            <% else %>
+                <%= render "shared/products", :products => @products, :taxon => @taxon %>
+            <% end %>
         <% end %>
     <% end %>
-  <% end %>
 
 <% else %>
 
-  <%= hook :homepage_products do %>
-    <% if params[:current_store_id] == 1 %>
-        <%= render "shared/footballshirt/sidebar_left" %>
-        <div class="grid_13" style="margin-right: 0;width:770px;">
-            <%= render "shared/footballshirt/banner" %>
-            <%= render "shared/footballshirt/products", :products => @products, :taxon => @taxon %>
-        </div>
-        <!-- grid_10 body_content -->
-    <% else %>
-        <%= render "shared/products", :products => @products, :taxon => @taxon %>
-    <% end %>
+    <%= hook :homepage_products do %>
+        <% unless @current_store.default? %>
+            <div id="content">
+              <%= render "shared/#{@current_store.code}/sidebar_left" %>
+              <%= render "shared/#{@current_store.code}/banner" %>
+            </div>
+            <div id="content">
+              <%= render "shared/#{@current_store.code}/products", :products => @products, :taxon => @taxon %>
+            </div>
+        <% else %>
+            <%= render "shared/products", :products => @products, :taxon => @taxon %>
+        <% end %>
 
-  <% end %>
+    <% end %>
 
 
 <% end %>
