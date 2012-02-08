@@ -5,7 +5,8 @@ body {
 	margin-bottom: 0px;
 	font: 12px/1.2 Arial, Helvetica, sans-serif;
 	color: #FFF;
-	background: #FFF url(/images/store3/bg.jpg);
+	/*background: #FFF url(/images/store3/bg.jpg);*/
+    background: #010300 url(/images/store3/bg_border.jpg) center top no-repeat;
 }
 a {
 	color: #FFFFFF;
@@ -53,6 +54,14 @@ a:hover, a:active, a.selected{
 	width: 352px;
 	margin-top: 34px;
 	background: url(/images/store3/bg-sign-in.png);
+
+    /*width: 287px;*/
+    /*height: 104px;*/
+    /*float: left;*/
+    /*background-image: url('/images/store3/sprite_header_bg.png');*/
+    /*background-repeat: no-repeat;*/
+    /*background-position: -10px -10px;*/
+
 }
 .sign_in .sign_in_email {
 	height: 152px;
@@ -81,6 +90,11 @@ a:hover, a:active, a.selected{
 	width: 230px;
 	margin-right: 40px;
 	margin-left: 40px;
+}
+
+hr.space{
+/*display: none;*/
+    background: #000000;
 }
 
 
@@ -303,3 +317,8 @@ p {
 	width: 188px;
 	background-color:transparent;
 	border:none;
+}
+
+#faqs {
+  font-size: 12px;
+}
