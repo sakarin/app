@@ -38,4 +38,5 @@ production:
   password: "!knu@"
 
   host: localhost
-  #host: 77.68.63.18
+  #host: 77.68.63.19
+

@@ -5,8 +5,8 @@
   <% @best_selling_variants.each_with_index do |v, i| %>
       <div class="box1">
         <% product = Product.find(v[0].id) %>
-        <%#= link_to product_image(product, :size => "55x78", :class => 'space_box'), product %>
-        <%= link_to(image_tag(product.images.first.attachment.url(:mini), :size => "55x78", :class => 'space_box'), product) %>
+
+        <%#= link_to(image_tag(product.images.first.attachment.url(:mini), :size => "55x78", :class => 'space_box'), product) %>
         <p>
 
           <%= link_to product.name, product %>
