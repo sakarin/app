@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120117090901) do
+ActiveRecord::Schema.define(:version => 20120118044938) do
 
   create_table "ad_hoc_option_types", :force => true do |t|
     t.integer  "product_id"
@@ -150,6 +150,25 @@ ActiveRecord::Schema.define(:version => 20120117090901) do
     t.integer  "address_id"
     t.string   "gateway_customer_profile_id"
     t.string   "gateway_payment_profile_id"
+  end
+
+  create_table "currencies", :force => true do |t|
+    t.string   "num_code",                      :null => false
+    t.string   "char_code",                     :null => false
+    t.string   "name",                          :null => false
+    t.boolean  "basic",      :default => false
+    t.string   "locale"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "currency_converters", :force => true do |t|
+    t.integer  "currency_id",                  :null => false
+    t.datetime "date_req",                     :null => false
+    t.float    "nominal",     :default => 1.0, :null => false
+    t.float    "value",                        :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "customizable_product_options", :force => true do |t|
@@ -654,9 +673,10 @@ ActiveRecord::Schema.define(:version => 20120117090901) do
     t.text     "domains"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "default",    :default => false
+    t.boolean  "default",            :default => false
     t.string   "email"
     t.text     "seo_title"
+    t.text     "gg_analytic_script"
   end
 
   create_table "suppliers", :force => true do |t|
