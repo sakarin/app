@@ -68,8 +68,8 @@ module SpreeBase
 
     def get_taxonomies
       @taxonomies ||= current_store.present? ? Taxonomy.where(["store_id = ?", current_store.id]) : Taxonomy
-      @taxonomies = @taxonomies.find(:all, :include => {:root => :children})
-      @taxonomies
+
+      @taxonomies.reject { |t| t.root.nil? }
     end
     
     def add_current_store_id_to_params

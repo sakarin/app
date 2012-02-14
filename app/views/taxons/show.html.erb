@@ -1,32 +1,13 @@
-<% if params[:current_store_id] == 1 %>
-    <% content_for :sidebar do %>
-        <%= render "shared/taxonomies" %>
-    <% end %>
-    <%= render "shared/footballshirt/sidebar_left"  %>
+<% unless @current_store.default? %>
 
-    <div class="grid_13" style="margin-right: 0;width:770px;">
 
-        <div id="product-list">
-            <div class="top-box-770"></div>
-                <div class="title">
-                    <h1><%= accurate_title %></h1>
-                </div>
-
-                <% if @taxon.children.empty? || !params[:keywords].blank? %>
-                    <%= hook :taxon_products do %>
-                        <%= render :partial => "shared/footballshirt/list_products", :locals => {:products => @products, :taxon => @taxon } %>
-                    <% end %>
-                <% else %>
-                    <%= hook :taxon_children do %>
-                        <%= render :partial => "taxon", :collection => @taxon.children %>
-                    <% end %>
-                <% end %>
-
-            <div class="footer-770"></div>
-            <!-- last product -->
-        </div>
-        </div>
-        <!-- grid_10 body_content -->
+    <div id="content">
+      <%= render "shared/#{@current_store.code}/sidebar_left" %>
+      <%= render "shared/#{@current_store.code}/banner" %>
+    </div>
+    <div id="content">
+      <%= render "shared/#{@current_store.code}/taxons_show" %>
+    </div>
 
 <% else %>
     <h1><%= accurate_title %></h1>

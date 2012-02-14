@@ -7,28 +7,6 @@ html {
     height: 100%;
 }
 
-.clearfix:after {
-    content: ".";
-    display: block;
-    clear: both;
-    visibility: hidden;
-    line-height: 0;
-    height: 0;
-}
-
-.clearfix {
-    display: inline-block;
-}
-
-html[xmlns] .clearfix {
-    display: block;
-}
-
-* html .clearfix {
-    height: 1%;
-}
-
-
 body {
     height: 100%;
     color: #a4a4a4;
@@ -40,8 +18,6 @@ body {
     background-position: 50% 0;
     background-repeat: no-repeat;
     font-family: Tahoma, sans-serif;
-
-
 }
 
 a:link, a:visited {
@@ -52,11 +28,7 @@ a:link, a:visited {
 a img {
     border: 0;
 }
-img {
-    color: transparent;
-    font-size: 0;
-    vertical-align: middle;
-}
+
 div.wrap {
     width: 690px;
     margin: 0 auto;
@@ -102,7 +74,7 @@ div#video-header {
 
 div#header div.wrap {
     height: 299px;
-    /*background : url(/images/store3/header-bg.png) no-repeat 50% 0;*/
+    /*background : url(images/header-bg.png) no-repeat 50% 0;*/
 }
 
 div#header div#slide-holder {
@@ -134,7 +106,7 @@ div#header div#slide-holder div#slide-controls {
     height: 46px;
     display: none;
     position: absolute;
-    /*background : url(/images/store3/slide-bg.png) 0 0;*/
+    /*background : url(images/slide-bg.png) 0 0;*/
 }
 
 div#header div#slide-holder div#slide-controls p.text {
@@ -181,238 +153,86 @@ div#nav ul li a {
     background: url(/images/store3/nav.png) no-repeat;
 }
 
-
-.show-product {
-    font-size: 16px;
+.h_subm_content {
+    display: none;
 }
 
-
-/* product thumbnail costomization */
-
-#thumbnails ul#product-thumbnails{
-    list-style: none;
+#header_submenus {
+    font: normal 12px arial, helvetica;
+    color: #CCC;
 }
-#thumbnails ul#product-thumbnails li{
+
+#header_submenus .h_subm_content {
+    width: 580px;
+    height: 356px;
+
+    /*	padding: 0px 0px 0px 50px;*/
+    margin-left: -85px;
+    margin-top: 0px;
+    padding-bottom: 20px;
+    color: #CCC;
+    background: url(/images/store3/inner_menu.png) no-repeat;
+    overflow: hidden;
+    padding-top: 5px;
+    padding-left: 20px;
+    border: 1px solid #FFF;
+
+}
+
+.h_subm_content {
     float: left;
 }
-#product-images #main-image{
-    margin-top: 20px;
-}
-#product-images #main-image img{
-    margin: 0 auto;
+
+.teams_subm_column {
+    width: 162px;
+    float: left;
     display: block;
-}
-#product-images #thumbnails{
-    margin-top: 20px;
-}
-#product-images #thumbnails ul#product-thumbnails li{
-    margin-left: 10px;
-    margin-right: 10px;
-    border: 1px solid #d2d2d2;
-    border-radius: 5px;
-}
-#product-images #thumbnails ul#product-thumbnails li.selected{
-    border: 2px solid #333333;
-}
-#body_content .customize fieldset label  { width: 60px; }
-#body_content .customize #cart-form #product-customizations ol li label{ float: left; width: 65px;}
-#body_content .customize #cart-form { padding-left: 250px; padding-right: 230px; }
-#body_content .customize {
-    margin-top: 10px;
-    /*background: #E5E5E5;
-    border: 1px solid #CCC;
-    border-radius: 10px;*/
-    padding: 20px;
-    border-image: initial;
-    text-align: left;
-}
-.order-description{
-    text-align: left;
-    font-size: 13px;
-}
-#body_content{
-    text-align: left;
-}
-#body_content h1{
-    text-align: center;
-    font-size: 14px;
+    margin-right: 15px;
 }
 
-#body_content .content-960 table#cart-detail{
-    width: 100%;
-    border-collapse: collapse;
-}
-#body_content .content-960 table#cart-detail tbody tr{
-    border-bottom: 1px solid #ddd;
-}
-#body_content .content-960 table#cart-detail thead{
-    border-bottom: 1px solid #ddd;
-    font-size: 16px;
-    font-weight: bold;
-}
-#body_content .content-960 table#cart-detail thead tr th{
-    padding-bottom: 10px;
-}
-#body_content .content-960 table#cart-detail tbody tr td{
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-#body_content .content-960 table#cart-detail tbody tr td dl{
-    margin-left: 10px;
-}
-#body_content .content-960 table#cart-detail tbody tr td dl dd{
-    margin-left: 2.5em;
-}
-#body_content .content-960 table#cart-detail tbody tr td h4{
-    font-weight: normal;
-    color: #222;
-    font-size: 1.2em;
-    line-height: 1.25;
-    margin-bottom: 1.25em;
-}
-#body_content .content-960 table#cart-detail tbody tr td h4 a{
-    color: #333333;
-}
-#body_content .content-960 table#cart-detail{
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 15px;
-}
-#body_content .content-960 form#updatecart #subtotal{
-    float: right;
-    text-align: left;
-    display: block;
-    height: 150px;
-}
-#body_content .content-960 #subtotal h3{
-    font-size: 19px;
-    font-weight: normal;
+.space_bottom_top_menu {
+    background: url(/images/store3/line-menu-product.png) no-repeat bottom;
+    padding-bottom: 5px;
+    margin-bottom: 2px;
+    margin-top: 5px;
+    font-size: 11px;
 }
 
-
-#body_content .content-960 button,
-#body_content .content-960 a.button,
-#body_content .content-960 input.button{
-    border-radius: 0.5em;
-    background: #EFEFEF url(../../images/footballshirt/body_content/bg-button.png) center left repeat-x !important;
-    border-style: solid;
-    border-width: 1px !important;
-    border-color: #ddd #999 !important;
-    padding: 8px 25px;
-    text-decoration: none;
-    text-transform: lowercase;
-    width: auto;
-    height: auto;
-    cursor: pointer;
-    color: #333333;
-    margin-top: 15px;
-    font-weight: bold;
-    font-size: 12px;
-
-
-}
-
-div#checkout{
+/*------------------------------*/
+.dcjq-vertical-mega-menu .menu {
+    -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
     position: relative;
 }
-div#checkout .progress-steps {
-    position: absolute;
-    top: 0.5em;
-    right: 0;
-}
-ol.progress-steps {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    line-height: 1em;
-    font-size: 12px;
-}
-ol.progress-steps li.current-first {
-    color: #FFFFFF;
-}
-ol.progress-steps li {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: block;
-    float: left;
-    color: #999;
-    background-position: top left;
-    background-repeat: no-repeat;
-    background-image: url(../../images/step-progress/incomplete-incomplete.gif);
-}
-ol.progress-steps li.current-first {
-    background-image: url(../../images/step-progress/current-first.gif);
-}
-ol.progress-steps li.next {
-    background-image: url(../../images/step-progress/current-incomplete.gif);
-}
-ol.progress-steps li.last span {
-    background-image: url(../../images/step-progress/incomplete-right.gif);
-}
-ol.progress-steps li span {
-    padding: 5px 14px 7px 24px;
-    display: block;
-    float: left;
-    background-position: top right;
-    background-repeat: no-repeat;
-}
-ol.progress-steps li.current-first span {
-    padding-left: 14px;
-}
-div#checkout-summary {
-    background-color: #C3C9DF;
-    float: right;
-    margin-top: 10px;
-    padding: 20px;
-    width: 180px;
-    margin-top: 50px;
-    display: block;
-    border-radius: 10px;
-}
-br[clear=left] {
-    clear: left;
-}
-#body_content .content-960 form#checkout_form_delivery{
-    margin-top: 10px;
-}
-#body_content .content-960 form#checkout_form_delivery legend {
-    font-size: 150%;
-    margin-bottom: 0.5em;
-}
-#body_content .content-960 hr.space {
-    /*background: #DDD;*/
-    color: #DDD;
-    clear: both;
-    float: none;
-    width: 100%;
-    height: 0.1em;
-    margin: 0 0 1.45em;
-    border: none;
-    /*background: white;*/
-    /*color: white;*/
-}
-ol.progress-steps li.completed-first {
-    background-image: url(../../images/step-progress/completed-first.gif) !important;
-}
-ol.progress-steps li.current {
-    background-image: url(../../images/step-progress/completed-current.gif);
-}
-ol.progress-steps li.next-last {
-    background-image: url(../../images/step-progress/current-incomplete.gif);
-}
-ol.progress-steps li.next-last span {
-    background-image: url(../../images/step-progress/incomplete-right.gif);
-}
-ol.progress-steps li.current {
-    color: white;
-}
 
-#page_content{
+.dcjq-vertical-mega-menu ul li,.dcjq-vertical-mega-menu ul li li li {
+    background: url(/images/store3/line-menu-product.png) no-repeat bottom;
     text-align: left;
 }
+.dcjq-vertical-mega-menu ul li li{
+    background: none;
+}
 
+.dcjq-vertical-mega-menu ul li a {
+    background: url(/images/store3/arrow-menu.png) left no-repeat;
+    padding-left: 10px;
+    padding-right: 25px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    margin-left: 50px;
+}
 
+.dcjq-vertical-mega-menu ul li li a {
+    margin-left: 0;
+}
 
+ul {
+    list-style: none outside none;
+}
 
-/*  Check out  */
-
+.dcjq-vertical-mega-menu .menu {
+    font-size: 12px;
+}
