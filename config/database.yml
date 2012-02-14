@@ -34,9 +34,6 @@ production:
   reconnect: false
   database: footballshirt_production
   pool: 5
-  username: root
-  password: "!knu@"
-
-  host: localhost
-  #host: 77.68.63.19
-
+  username: footballshirt
+  password: "GrtpCaZWRFC3fnev"
+  host: 77.68.63.19
