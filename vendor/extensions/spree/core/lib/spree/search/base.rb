@@ -15,7 +15,8 @@ module Spree::Search
       @products = @products_scope.paginate({
           :include  => [:images, :master],
           :per_page => per_page,
-          :page     => curr_page
+          :page     => curr_page,
+          :order => 'created_at DESC'
         })
     end
 
