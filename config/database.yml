@@ -36,4 +36,4 @@ production:
   pool: 5
   username: root
   password: "!knu@"
-  host: 77.68.6.19
+  host: 77.68.63.19
