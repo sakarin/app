@@ -15,4 +15,14 @@ class MultiCurrenciesHooks < Spree::ThemeSupport::HookListener
       <% end %>
      )
   end
+  insert_before :admin_product_form_right do
+    %(
+      <% if current_user.has_role?(:admin) %>
+        
+          <%= f.label :original_currency, t("original_currency")%> <span class="required">*</span><br />
+          <%= f.collection_select(:original_currency, Currency.all, :id, :name, {:include_blank => false}, {"style" => "width:200px"}) %>
+        
+      <% end %>
+    )
+  end
 end

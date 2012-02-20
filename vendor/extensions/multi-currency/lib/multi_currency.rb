@@ -14,14 +14,11 @@ module MultiCurrency
       define_method(number_field.to_sym) do
         if options.has_key?(:rate_at_date) && options[:rate_at_date].is_a?(Proc)
           Currency.conversion_to_current(read_attribute(number_field.to_sym),
-                                         { :date => options[:rate_at_date].call(self) })
+                                         { :date => options[:rate_at_date].call(self),
+                                           :product => self.id })
         else
-          Currency.conversion_to_current(read_attribute(number_field.to_sym))
+          Currency.conversion_to_current(read_attribute(number_field.to_sym), {:product => self.id})
         end
-      end
-
-      define_method("base_#{number_field}") do
-        read_attribute(number_field.to_sym)
       end
 
       unless options[:only_read]
@@ -31,6 +28,7 @@ module MultiCurrency
       end
 
     end
+
   end
 end
 
