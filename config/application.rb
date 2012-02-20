@@ -45,7 +45,7 @@ module App
     config.filter_parameters += [:password]
 
 
-    #ActiveMerchant::Billing::PaypalExpressGateway.default_currency = 'GBP'
+    ActiveMerchant::Billing::PaypalExpressGateway.default_currency = 'GBP'
 
     config.middleware.use PDFKit::Middleware
 

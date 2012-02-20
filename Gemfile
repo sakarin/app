@@ -40,4 +40,4 @@ end
 
 gem "activemerchant", :path => "vendor/extensions/active_merchant/"
 
-gem "multi_currencies",  :path => "vendor/extensions/multi-currency/"
+#gem "multi_currencies",  :path => "vendor/extensions/multi-currency/"

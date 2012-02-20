@@ -7,15 +7,6 @@ PATH
       builder (>= 2.0.0)
 
 PATH
-  remote: vendor/extensions/multi-currency/
-  specs:
-    multi_currencies (1.0.3)
-      json (>= 1.5.1)
-      money (>= 3.6.1)
-      nokogiri (>= 1.4.4)
-      spree_core (>= 0.50.0)
-
-PATH
   remote: vendor/extensions/spree
   specs:
     spree (0.60.2)
@@ -153,14 +144,10 @@ GEM
       activesupport (~> 3.0.2)
       arel (~> 2.0.2)
     mime-types (1.16)
-    money (4.0.2)
-      i18n (~> 0.4)
-      json
     mysql2 (0.2.13)
     nested_set (1.6.7)
       activerecord (>= 3.0.0)
       railties (>= 3.0.0)
-    nokogiri (1.5.0)
     orm_adapter (0.0.5)
     paperclip (2.3.11)
       activerecord (>= 2.3.0)
@@ -222,7 +209,6 @@ DEPENDENCIES
   activemerchant!
   acts_as_commentable
   formtastic
-  multi_currencies!
   mysql2 (< 0.3)
   pdfkit
   rails (= 3.0.9)
