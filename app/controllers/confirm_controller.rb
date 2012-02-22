@@ -1,5 +1,7 @@
 class ConfirmController < Spree::BaseController
 
+  skip_before_filter :verify_authenticity_token
+
   def paypal
     path = "#{@_env['PATH_INFO']}".gsub("confirm/","")
 
