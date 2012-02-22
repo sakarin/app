@@ -34,10 +34,12 @@ gem "spreadsheet", "~> 0.6.5.9"
 
 gem 'to_xls'
 
+gem "activemerchant", :path => "vendor/extensions/active_merchant/"
+
 group :production do
   gem 'mysql2', '< 0.3'
 end
 
-gem "activemerchant", :path => "vendor/extensions/active_merchant/"
-
-#gem "multi_currencies",  :path => "vendor/extensions/multi-currency/"
+group :development do
+  gem "multi_currencies",  :path => "vendor/extensions/multi-currency/"
+end
