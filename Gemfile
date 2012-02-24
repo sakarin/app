@@ -39,7 +39,3 @@ gem "activemerchant", :path => "vendor/extensions/active_merchant/"
 group :production do
   gem 'mysql2', '< 0.3'
 end
-
-group :development do
-  gem "multi_currencies",  :path => "vendor/extensions/multi-currency/"
-end
