@@ -6,7 +6,7 @@ CheckoutController.class_eval do
   #---------------------------------------------------------------------------
   #- Skip verify_authenticity_token For Redirect Page (Paypal Confirm)
   #---------------------------------------------------------------------------
-  skip_before_filter :verify_authenticity_token, :only => [:paypal_confirm]
+  #skip_before_filter :verify_authenticity_token, :only => [:paypal_confirm]
 
 
 
