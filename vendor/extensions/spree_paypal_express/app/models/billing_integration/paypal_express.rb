@@ -8,6 +8,7 @@ class BillingIntegration::PaypalExpress < BillingIntegration
   preference :second_store, :string
   preference :currency, :string, :default => 'GBP'
 
+
   def provider_class
     ActiveMerchant::Billing::PaypalExpressGateway
   end
