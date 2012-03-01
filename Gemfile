@@ -39,3 +39,6 @@ gem "activemerchant", :path => "vendor/extensions/active_merchant/"
 group :production do
   gem 'mysql2', '< 0.3'
 end
+
+
+gem 'exception_notification', :require => 'exception_notifier'

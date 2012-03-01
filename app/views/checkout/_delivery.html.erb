@@ -8,6 +8,9 @@
             <%= radio_button(:order, :shipping_method_id, shipping_method[:id]) %>
             <%= shipping_method[:name] %> <%= number_to_currency shipping_method[:cost] %>
           </label><br />
+          <label>
+            Item will be posted to the address you inform in Paypal.
+          </label>
         <% end %>
       </p>
     </div>

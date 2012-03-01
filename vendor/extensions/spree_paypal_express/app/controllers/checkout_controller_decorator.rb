@@ -105,15 +105,15 @@ CheckoutController.class_eval do
 
       #unless payment_method.preferred_no_shipping
         ship_address = @ppx_details.address
-        order_ship_address = Address.new :firstname  => @ppx_details.params["first_name"],
-                                         :lastname   => @ppx_details.params["last_name"],
+        order_ship_address = Address.new :firstname  => ship_address["name"],
+                                         :lastname   => "",
                                          :address1   => ship_address["address1"],
                                          :address2   => ship_address["address2"],
                                          :city       => ship_address["city"],
                                          :country    => Country.find_by_iso(ship_address["country"]),
                                          :zipcode    => ship_address["zip"],
                                          # phone is currently blanked in AM's PPX response lib
-                                         :phone      => @ppx_details.params["phone"] || "(not given)"
+                                         :phone      => @ppx_details.params["phone"] || ""
 
         if (state = State.find_by_abbr(ship_address["state"]))
           order_ship_address.state = state
@@ -228,11 +228,13 @@ CheckoutController.class_eval do
   end
 
   def fixed_opts
-    if Spree::Config[:paypal_express_local_confirm].nil?
-      user_action = "continue"
-    else
-      user_action = Spree::Config[:paypal_express_local_confirm] == "t" ? "continue" : "commit"
-    end
+    #if Spree::Config[:paypal_express_local_confirm].nil?
+    #  user_action = "continue"
+    #else
+    #  user_action = Spree::Config[:paypal_express_local_confirm] == "t" ? "continue" : "commit"
+    #end
+
+    user_action = "commit"
 
     { :description             => "Goods from #{Spree::Config[:site_name]}", # site details...
 
@@ -241,8 +243,8 @@ CheckoutController.class_eval do
       :background_color        => "ffffff",  # must be hex only, six chars
       :header_background_color => "ffffff",
       :header_border_color     => "ffffff",
-      :allow_note              => true,
-      :locale                  => Spree::Config[:default_locale],
+      :allow_note              => false,
+      :locale                  => request.protocol + params[:host_with_port],
       :req_confirm_shipping    => false,   # for security, might make an option later
       :user_action             => user_action
 
@@ -303,7 +305,7 @@ CheckoutController.class_eval do
       opts[:handling] = 0
 
       opts[:callback_url] = "http://"  + request.host_with_port + "/paypal_express_callbacks/#{order.number}"
-      opts[:callback_timeout] = 3
+      opts[:callback_timeout] = 5
     elsif stage == "payment"
       #hack to add float rounding difference in as handling fee - prevents PayPal from rejecting orders
       #because the integer totals are different from the float based total. This is temporary and will be
