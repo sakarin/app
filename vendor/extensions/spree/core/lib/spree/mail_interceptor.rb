@@ -16,7 +16,7 @@ module Spree
       end
 
       if mail_method.preferred_mail_bcc.present?
-        unless message.delivery_handler.default_email_prefix == "[ERROR]"
+        unless message.delivery_handler.mailer_name == "exception_notifier"
           message.bcc = mail_method.preferred_mail_bcc
         end
       end
