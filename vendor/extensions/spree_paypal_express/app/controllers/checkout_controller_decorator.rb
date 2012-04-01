@@ -17,7 +17,7 @@ CheckoutController.class_eval do
     if Rails.env == "production"
       @preferences = Preference.where(:value => request.host , :owner_type => "PaymentMethod").to_a
       @preferences.each do |item|
-        preference = Preference.where(:name => "server", :value => 'live' , :owner_type => "PaymentMethod", :owner_id => item.owner_id).first
+        preference = Preference.where(:name => "server", :value => 'production' , :owner_type => "PaymentMethod", :owner_id => item.owner_id).first
         unless preference.nil?
           params[:payment_method_id] = preference.owner_id
           params[:host_with_port] =   Preference.where("name = ? And owner_id = ?", "main_store", preference.owner_id).first.value
