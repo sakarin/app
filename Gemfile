@@ -42,5 +42,6 @@ group :production do
   gem 'mysql2', '< 0.3'
 end
 
-
 gem 'exception_notification', :require => 'exception_notifier'
+
+#gem "multi_currencies", :git => "git://github.com/martinjlowm/spree-multi-currency.git"
