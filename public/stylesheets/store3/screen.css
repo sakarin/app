@@ -1,35 +1,29 @@
 div.breadcrumbs{display: none;}
-body {
-  background: url(../../images/footballshirt/bg.png) repeat-x #000000;
-  color: #333;
-  font-size: 13px;
-  height: auto;
-  padding-bottom: 20px;
-}
+
 
 a {
-  color: #fff;
-  text-decoration: none;
+    color: #fff;
+    text-decoration: none;
 }
 
 a:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 h1 {
-  font-family: Georgia, serif;
-  font-weight: normal;
-  padding-top: 20px;
-  text-align: center;
+    font-family: Georgia, serif;
+    font-weight: normal;
+    padding-top: 20px;
+    text-align: center;
 }
 
 h2 {
-  padding-top: 20px;
-  text-align: center;
+    padding-top: 20px;
+    text-align: center;
 }
 
 p {
-  padding: 5px 0;
+    padding: 5px 0;
 }
 
 /* top-nav */
@@ -270,7 +264,7 @@ ul#nav li a{
 #body_content .top-box-770,
 #product-list .top-box-770{
     height: 10px;
-    background: url('../../images/footballshirt/body_content/top-box-770.png') no-repeat;
+    /*background: url('../../images/footballshirt/body_content/top-box-770.png') no-repeat;*/
 }
 #body_content .top-box-960{
     height: 10px;
@@ -280,13 +274,14 @@ ul#nav li a{
 #product-list .title{
     padding-left: 20px;
     padding-right: 20px;
-    background: url('../../images/footballshirt/body_content/title_bg.png') no-repeat #ffffff;
+    /*background: url('../../images/footballshirt/body_content/title_bg.png') no-repeat #ffffff;*/
     min-height: 40px;
+
 }
 #body_content .title-960{
     padding-left: 20px;
     padding-right: 20px;
-    background: url('../../images/footballshirt/body_content/title_bg_960.png') no-repeat #ffffff;
+    /*background: url('../../images/footballshirt/body_content/title_bg_960.png') no-repeat #ffffff;*/
     min-height: 40px;
 }
 #body_content .title h1,
@@ -295,6 +290,7 @@ ul#nav li a{
     padding-top: 0px;
     text-align: left;
     font-size: 24px;
+    color: #06F;
 }
 #product-list .title h1,
 #body_content .title h1.page-title{
@@ -309,16 +305,16 @@ ul#nav li a{
 #product-list .content{
     padding-top: 20px;
     padding-bottom: 15px;
-    background: url('../../images/footballshirt/body_content/body_content_bg.png') no-repeat #ffffff;
+    /*background: url('../../images/footballshirt/body_content/body_content_bg.png') no-repeat #ffffff;*/
 }
 #body_content .content-770,
 #product-list .content-770{
-    background: url('../../images/footballshirt/body_content/body_content_bg_770.png') no-repeat #ffffff !important;
+    /*background: url('../../images/footballshirt/body_content/body_content_bg_770.png') no-repeat #ffffff !important;*/
 }
 #body_content .content-960{
     padding-top: 20px;
     padding-bottom: 15px;
-    background: url('../../images/footballshirt/body_content/body_content_bg_960.png') no-repeat #ffffff;
+    /*background: url('../../images/footballshirt/body_content/body_content_bg_960.png') no-repeat #ffffff;*/
     padding-left: 20px;
     padding-right: 20px;
 }
@@ -348,11 +344,11 @@ ul#nav li a{
 }
 #body_content .footer-770,
 #product-list .footer-770{
-    background: url('../../images/footballshirt/body_content/body_content_footer_770.png') no-repeat;
+    /*background: url('../../images/footballshirt/body_content/body_content_footer_770.png') no-repeat;*/
     height: 50px;
 }
 #body_content .footer-960{
-    background: url('../../images/footballshirt/body_content/body_content_footer_960.png') no-repeat;
+    /*background: url('../../images/footballshirt/body_content/body_content_footer_960.png') no-repeat;*/
     height: 50px;
 }
 #body_content .topic_item{
@@ -360,9 +356,9 @@ ul#nav li a{
 }
 #body_content .customize{
     margin-top: 10px;
-    background: #e5e5e5;
-    border: 1px solid #cccccc;
-    border-radius: 10px;
+    /*background: #e5e5e5;*/
+    /*border: 1px solid #cccccc;*/
+    /*border-radius: 10px;*/
     padding: 20px;
 }
 #product-list .left-topic{
@@ -451,9 +447,11 @@ ul#nav li a{
 }
 #body_content .content .customize #cart-form #ad_hoc_options fieldset label {
     width: 100%;
+    text-align: left;
 }
 #body_content .content .customize #cart-form #ad_hoc_options fieldset select{
-    width: 200px;
+    width: 300px;
+    text-align: left;
 }
 #body_content .content-960 table#cart-detail{
     width: 100%;
@@ -629,8 +627,8 @@ ol.progress-steps li.current {
 #body_content .content-960 #order table.index tbody#line-items tr th.total,
 #body_content .content-960 #order table.index tbody#line-items tr th.qty,
 #body_content .content-960 #order table.index tbody#line-items tr th.price{
-   width: 10%;
-   text-align: right;
+    width: 10%;
+    text-align: right;
 }
 #body_content .content-960 #order table.index tbody#line-items tr{
     border-bottom: 1px solid #ddd;
@@ -699,22 +697,22 @@ ol.progress-steps li.current {
 }
 
 .errorExplanation {
-  font-size: 1.3em;
-  margin-bottom: 1em;
-  padding: 0.8em;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-  background: #f4b4b4 url(../images/shadow_top.png) 0px -50px repeat-x;
-  color: #333;
-  border: 1px solid #ddd;
+    font-size: 1.3em;
+    margin-bottom: 1em;
+    padding: 0.8em;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #f4b4b4 url(../images/shadow_top.png) 0px -50px repeat-x;
+    color: #333;
+    border: 1px solid #ddd;
 }
 .errorExplanation p { margin: 0px; }
 .errorExplanation ul { margin-bottom: 0px; list-style: none;margin-left: 20px;}
 .errorExplanation h2 {
-  font-weight: bold;
-  font-size: 1em;
-  margin: 0px;
+    font-weight: bold;
+    font-size: 1em;
+    margin: 0px;
 }
 #body_content .content-960 #faqs{
 
@@ -774,37 +772,37 @@ ul.answers li div.answer{
 }
 
 .flash {
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  margin-bottom: 2em;
-  padding: 0.5em;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    margin-bottom: 2em;
+    padding: 0.5em;
 }
 
 
 .flash.error {
-  color:#fff;
-  margin-bottom:15px;
-  background:#ff5351 url('../../images/admin/admin-mystore/screen-flash.png') 0 -804px repeat-x;
+    color:#fff;
+    margin-bottom:15px;
+    background:#ff5351 url('../../images/admin/admin-mystore/screen-flash.png') 0 -804px repeat-x;
 }
 .flash.error div{
-  padding:8px 8px 8px 40px;
-  background:transparent url('../../images/admin/admin-mystore/screen-flash.png') 0 -938px no-repeat;
+    padding:8px 8px 8px 40px;
+    background:transparent url('../../images/admin/admin-mystore/screen-flash.png') 0 -938px no-repeat;
 }
 .flash.notice {
-  color:#fff;
-  margin-bottom:15px;
-  background: url('../../images/admin/admin-mystore/screen-flash.png') 0 -268px repeat-x
+    color:#fff;
+    margin-bottom:15px;
+    background: url('../../images/admin/admin-mystore/screen-flash.png') 0 -268px repeat-x
 }
 .flash.notice div{
-  padding:8px 8px 8px 40px;
-  background:transparent url('../../images/admin/admin-mystore/screen-flash.png') 0 -402px no-repeat
+    padding:8px 8px 8px 40px;
+    background:transparent url('../../images/admin/admin-mystore/screen-flash.png') 0 -402px no-repeat
 }
 
 
 .flash.notice {
 
     color:#fff;
-  margin-bottom:10px;
-  background: url('../../images/admin/admin-mystore/screen-flash.png') 0 -268px repeat-x
+    margin-bottom:10px;
+    background: url('../../images/admin/admin-mystore/screen-flash.png') 0 -268px repeat-x
 }
