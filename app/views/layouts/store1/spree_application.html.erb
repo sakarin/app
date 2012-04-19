@@ -37,9 +37,12 @@
             <li class="left">|</li>
             <li class="left"><%= link_to "Sign out", destroy_user_session_path %></li>
         <% end %>
+
         <li class="right">
           <%= render 'shared/footballshirt/search' %>
         </li>
+
+        <li class="right" style="vertical-align: bottom;">CURRENCY : <%= link_to "USD", currency_path(:usd) %> | <%= link_to "GBP", currency_path(:gbp) %> | <%= link_to "EUR", currency_path(:eur) %></li>
       </ul>
     </div>
   </div>
