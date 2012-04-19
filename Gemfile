@@ -44,4 +44,4 @@ end
 
 gem 'exception_notification', :require => 'exception_notifier'
 
-#gem "multi_currencies", :git => "git://github.com/martinjlowm/spree-multi-currency.git"
+gem "multi_currencies", :path => "vendor/extensions/spree-multi-currency"

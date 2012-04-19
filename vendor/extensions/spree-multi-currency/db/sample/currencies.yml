@@ -1,0 +1,27 @@
+currencies_149:
+  name: United States dollar
+  created_at: 2011-04-29 09:23:38.804944
+  char_code: USD
+  updated_at: 2011-04-29 09:31:05.245228
+  id: 149
+  basic: f
+  locale: en
+  num_code: "840"
+currencies_49:
+  name: Euro
+  created_at: 2011-04-29 09:23:37.044014
+  char_code: EUR
+  updated_at: 2011-04-29 09:23:37.044014
+  id: 49
+  basic: f
+  locale:
+  num_code: "978"
+currencies_52:
+  name: Pound sterling
+  created_at: 2011-04-29 09:23:37.093200
+  char_code: GBP
+  updated_at: 2011-04-29 09:23:37.093200
+  id: 52
+  basic: t
+  locale:
+  num_code: "826"

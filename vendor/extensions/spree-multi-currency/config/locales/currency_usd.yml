@@ -11,14 +11,6 @@ currency_USD: &usd
         significant: false
         strip_insignificant_zeros: false
 
-currency_EUR:
-  <<: *usd
-  number:
-    currency:
-      format:
-        format: "%u%n"
-        unit: "€"
-
 currency_GBP:
   <<: *usd
   number:
@@ -27,3 +19,10 @@ currency_GBP:
         format: "%u%n"
         unit: "£"
 
+currency_EUR:
+  <<: *usd
+  number:
+    currency:
+      format:
+        format: "%u%n"
+        unit: "€"

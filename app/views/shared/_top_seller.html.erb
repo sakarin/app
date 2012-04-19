@@ -10,7 +10,7 @@
         <% @best_selling_variants.each_with_index do |v, i| %>
             <li>
               <p align="center"><%= link_to(image_tag(Product.find(v[0].id).images.first.attachment.url(:mini)), "/products/#{v[0].permalink}") %></p>
-              <a href="/products/<%= v[0].permalink %>" class="root"><%= "#{i + 1}. "  %><%= truncate v[0].name, :length => 50 %><%= " : £#{v[0].price}" %></a>
+              <a href="/products/<%= v[0].permalink %>" class="root"><%= "#{i + 1}. "  %><%= truncate v[0].name, :length => 50 %><%= " #{number_to_currency(v[0].price)} " %></a>
 
             </li>
         <% end %>
