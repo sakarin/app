@@ -2,12 +2,11 @@ module ActionView
   module Helpers
     module NumberHelper
 
-      def number_to_currency(number, currency, options = {})
+      def number_to_currency(number, options = {})
         return nil if number.nil?
 
         options.symbolize_keys!
-        p currency
-        options[:locale] = "currency_#{Currency.find(currency).char_code}"
+        options[:locale] = "currency_#{ Currency.current.try(:char_code) || I18n.default_locale }"
         defaults  = I18n.translate('number.format', :locale => options[:locale], :default => {})
         currency  = I18n.translate('number.currency.format', :locale => options[:locale], :default => {})
         defaults  = DEFAULT_CURRENCY_VALUES.merge(defaults).merge!(currency)

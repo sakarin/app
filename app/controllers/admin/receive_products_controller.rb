@@ -62,8 +62,13 @@ class Admin::ReceiveProductsController < Admin::BaseController
 
       #update state shipment
       inventory_units = InventoryUnit.find_all_by_receive_product_id(@receive_product.id)
+
       inventory_units.each do |item|
-        item.shipment.update!(item.order)
+        unless item.shipment.nil?
+          item.shipment.update!(item.order)
+        else
+          logger.error "Debug : Item Shipment is Null"
+        end
       end
 
 

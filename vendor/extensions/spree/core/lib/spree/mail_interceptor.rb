@@ -7,6 +7,7 @@ module Spree
 
     def self.delivering_email(message)
       return unless mail_method = MailMethod.current
+
       message.from ||= mail_method.preferred_mails_from
 
       if mail_method.preferred_intercept_email.present?
@@ -15,7 +16,9 @@ module Spree
       end
 
       if mail_method.preferred_mail_bcc.present?
-        message.bcc = mail_method.preferred_mail_bcc
+        unless message.delivery_handler.mailer_name == "exception_notifier"
+          message.bcc = mail_method.preferred_mail_bcc
+        end
       end
     end
 

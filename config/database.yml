@@ -10,6 +10,7 @@ development:
   encoding: utf8
   reconnect: false
   database: development
+  #database: footballshirt_production
   pool: 5
   username: root
   password: "root"

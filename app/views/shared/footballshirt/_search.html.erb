@@ -8,6 +8,6 @@
    #                           @taxons.map {|t| [t.name, t.id]}, 
    #                         @taxon ? @taxon.id : params[:taxon]) 
    %>
-  <p><%= text_field_tag :keywords, params[:keywords] %></p>
+  <p><%= text_field_tag :keywords, params[:keywords], :maxlength => '25' %></p>
   <%= submit_tag t(:search), :name => nil %>
 <% end %>

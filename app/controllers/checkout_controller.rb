@@ -16,7 +16,8 @@ class CheckoutController < Spree::BaseController
 
 
     if @order.state == 'delivery'
-       @order.update_attributes("bill_address_attributes"=>{"firstname"=>"Test", "lastname"=>"Test", "address1"=>"Test", "address2"=>"Test", "city"=>"Moody", "state_id"=>"1061493585", "zipcode"=>"34000", "country_id"=>"214", "phone"=>"3434343"})
+       #@order.update_attributes("bill_address_attributes"=>{"firstname"=>"Test", "lastname"=>"Test", "address1"=>"Test", "address2"=>"Test", "city"=>"Moody", "state_id"=>"1061493585", "zipcode"=>"34000", "country_id"=>"214", "phone"=>"3434343"})
+       @order.update_attributes("bill_address_attributes"=>{"firstname"=>"Test", "lastname"=>"Test", "address1"=>"Test", "address2"=>"Test", "city"=>"Moody", "state_id"=> nil, "zipcode"=>"34000", "country_id"=> nil, "phone"=>"3434343"})
     end
 
     if params[:state] == "delivery"

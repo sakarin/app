@@ -4,7 +4,7 @@ class Address < ActiveRecord::Base
 
   has_many :shipments
 
-  validates :firstname, :lastname, :address1, :city, :zipcode, :country, :presence => true
+  validates :firstname, :address1, :city,  :presence => true      # remove zipcode
   validate :state_validate
 
   # disconnected since there's no code to display error messages yet OR matching client-side validation

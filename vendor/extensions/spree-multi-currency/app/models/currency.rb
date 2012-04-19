@@ -33,19 +33,22 @@ class Currency < ActiveRecord::Base
 
     # Текущая валюта
     #
-    def current(current_locale = I18n.locale )
-      @current ||= locale(current_locale).first
-      @current
+    def current( current_locale = nil )
+      #@current = locale(current_locale).first
+
+      @current ||= where(:basic => true).first
+      #@current
     end
 
     def current!(current_locale = nil )
       @current = current_locale.is_a?(Currency) ? current_locale : locale(current_locale||I18n.locale).first
+      @current
     end
 
     def load_rate(options= {})
-      current(options[:locale] || I18n.locale)
-      basic(options[:product])
-      
+      #current(options[:locale] || I18n.locale)
+      basic
+
       if @rate = @current.currency_converters.get_rate(options[:date] || Time.now)
         add_rate(@basic.char_code,   @current.char_code, @rate.nominal/@rate.value.to_f)
         add_rate(@current.char_code, @basic.char_code,   @rate.value.to_f)
@@ -75,15 +78,16 @@ class Currency < ActiveRecord::Base
     #Currency.conversion_from_current(100, :locale => "ru")
     def conversion_from_current(value, options={})
       load_rate(options)
-      convert(value, @current.char_code, @basic.char_code)
+      convert(value,  @current.char_code, @basic.char_code)
     rescue => ex
       Rails.logger.error " [ Currency ] :#{ex.inspect}"
       value
     end
-    
+
+
     # Основная валюта
-    def basic(product)
-      @basic = Currency.find(Variant.find(product).original_currency)
+    def basic
+      @basic ||= where(:basic => true).first
     end
 
     def get(num_code, options ={ })

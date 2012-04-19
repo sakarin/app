@@ -36,9 +36,12 @@ gem 'to_xls'
 
 gem "activemerchant", :path => "vendor/extensions/active_merchant/"
 
+gem 'mysql2', '< 0.3'
+
 group :production do
   gem 'mysql2', '< 0.3'
 end
 
-
 gem 'exception_notification', :require => 'exception_notifier'
+
+gem "multi_currencies", :path => "vendor/extensions/spree-multi-currency"
