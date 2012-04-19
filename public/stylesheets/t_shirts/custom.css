@@ -10,7 +10,7 @@ a.info span.price { color: #FF9000; }
 
 .header-container { background: url(/images/t_shirts/header-bg.gif) repeat-x 0 0; }
 .header-top {clear:both;margin:0 auto;position:relative;width:930px;z-index:100;}
-.paypal-logo img{ margin-top:15px;margin-left:auto;margin-right:auto;display:block; }
+/*.paypal-logo img{ margin-top:15px;margin-left:auto;margin-right:auto;display:block; }*/
 .col3-layout .col-wrapper {float:left;width:723px;}
 .col3-layout .col-main {margin-left:4px;width:522px;}
 .col2-left-layout .col-main {float:right;width:720px;}
