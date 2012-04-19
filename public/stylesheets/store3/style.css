@@ -141,6 +141,12 @@ div#header div#slide-holder div#slide-controls p#slide-nav a {
     background-repeat: no-repeat;
 }
 
+.order-description{
+    text-align: left;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
 div#header div#slide-holder div#slide-controls p#slide-nav a.on {
     background-position: 0 -24px;
 }
@@ -197,6 +203,7 @@ div#nav ul li a {
     margin-top: 5px;
     font-size: 11px;
 }
+
 
 /*------------------------------*/
 .dcjq-vertical-mega-menu .menu {
