@@ -65,12 +65,13 @@ CheckoutController.class_eval do
   def paypal_payment
     load_order
     opts = all_opts(@order,params[:payment_method_id], 'payment')
+
     opts.merge!(address_options(@order))
     @gateway = paypal_gateway
 
+
+
     @ppx_response = @gateway.setup_purchase(opts[:money], opts)
-
-
 
     unless @ppx_response.success?
       gateway_error(@ppx_response)
@@ -187,6 +188,7 @@ CheckoutController.class_eval do
       #need to force checkout to complete state
       until @order.state == "complete"
         if @order.next!
+
           state_callback(:after)
         end
       end
@@ -256,11 +258,15 @@ CheckoutController.class_eval do
 
   # hook to override paypal site options
   def paypal_site_opts
-    {:currency => payment_method.preferred_currency}
+    {
+        #:currency => payment_method.preferred_currency
+        :currency => session[:currency_id].present? ? session[:currency_id].to_s : payment_method.preferred_currency
+    }
   end
 
   def order_opts(order, payment_method, stage)
     items = order.line_items.map do |item|
+
       price = (item.price * 100).to_i # convert for gateway
       { :name        => item.variant.product.name,
         :description => (item.variant.product.description[0..120] if item.variant.product.description),
@@ -298,8 +304,20 @@ CheckoutController.class_eval do
              :subtotal          => ((order.item_total * 100) + credits_total).to_i,
              :tax               => ((order.adjustments.map { |a| a.amount if ( a.source_type == 'Order' && a.label == 'Tax') }.compact.sum) * 100 ).to_i,
              :shipping          => ((order.adjustments.map { |a| a.amount if a.source_type == 'Shipment' }.compact.sum) * 100 ).to_i,
-             :money             => (order.total * 100 ).to_i }
+             :money             => (order.total * 100 ).to_i
+    }
 
+
+
+    #hack to add float rounding difference in as handling fee - prevents PayPal from rejecting orders
+    #hack by sakarin
+    subtotal = 0
+    opts[:items].each do |item|
+      subtotal += (item[:amount].to_i * item[:quantity])
+      logger.debug "#{item[:amount]}"
+    end
+
+    opts[:subtotal] = subtotal.to_i
 
     if stage == "checkout"
       opts[:handling] = 0
@@ -311,6 +329,8 @@ CheckoutController.class_eval do
       #because the integer totals are different from the float based total. This is temporary and will be
       #removed once Spree's currency values are persisted as integers (normally only 1c)
       opts[:handling] =  (order.total*100).to_i - opts.slice(:subtotal, :tax, :shipping).values.sum
+
+
     end
 
     opts
