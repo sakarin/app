@@ -258,10 +258,7 @@ CheckoutController.class_eval do
 
   # hook to override paypal site options
   def paypal_site_opts
-    {
-        #:currency => payment_method.preferred_currency
-        :currency => session[:currency_id].present? ? session[:currency_id].to_s : payment_method.preferred_currency
-    }
+    {  }
   end
 
   def order_opts(order, payment_method, stage)
@@ -304,7 +301,9 @@ CheckoutController.class_eval do
              :subtotal          => ((order.item_total * 100) + credits_total).to_i,
              :tax               => ((order.adjustments.map { |a| a.amount if ( a.source_type == 'Order' && a.label == 'Tax') }.compact.sum) * 100 ).to_i,
              :shipping          => ((order.adjustments.map { |a| a.amount if a.source_type == 'Shipment' }.compact.sum) * 100 ).to_i,
-             :money             => (order.total * 100 ).to_i
+             :money             => (order.total * 100 ).to_i,
+             :currency => session[:currency_id].present? ? session[:currency_id].to_s : Preference.find_by_owner_id_and_name(payment_method, 'currency').value
+
     }
 
 
