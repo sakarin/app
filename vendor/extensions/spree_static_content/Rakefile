@@ -25,8 +25,8 @@ Jeweler::Tasks.new do |s|
   s.add_dependency 'spree_editor', '>= 0.50.0'
   s.add_dependency 'formtastic', '~> 1.2.3'
   #s.has_rdoc = false
-  #s.extra_rdoc_files = [ "README.rdoc"]
-  #s.rdoc_options = ["--main", "README.rdoc", "--inline-source", "--line-numbers"]
+  #s.extra_rdoc_files = [ "README.md.rdoc"]
+  #s.rdoc_options = ["--main", "README.md.rdoc", "--inline-source", "--line-numbers"]
   #s.test_files = Dir['test/**/*.{yml,rb}']
 end
 Jeweler::GemcutterTasks.new
@@ -97,7 +97,7 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title    = 'StaticContentExtension'
   rdoc.options << '--line-numbers' << '--inline-source'
-  rdoc.rdoc_files.include('README')
+  rdoc.rdoc_files.include('README.md')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 

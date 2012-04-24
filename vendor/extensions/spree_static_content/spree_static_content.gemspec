@@ -12,12 +12,12 @@ Gem::Specification.new do |s|
   s.date = %q{2011-06-25}
   s.description = %q{Extention to manage the static pages for your Spree shop.}
   s.extra_rdoc_files = [
-    "README.rdoc"
+    "README.md.rdoc"
   ]
   s.files = [
     ".gitignore",
      "CONTRIBUTORS.textile",
-     "README.rdoc",
+     "README.md.rdoc",
      "Rakefile",
      "VERSION",
      "Versionfile",

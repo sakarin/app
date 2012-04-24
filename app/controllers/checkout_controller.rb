@@ -37,7 +37,6 @@ class CheckoutController < Spree::BaseController
       end
 
 
-
       if @order.state == "complete" || @order.completed?
         flash[:notice] = I18n.t(:order_processed_successfully)
         flash[:commerce_tracking] = "nothing special"

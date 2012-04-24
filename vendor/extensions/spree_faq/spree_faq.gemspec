@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.homepage          = 'http://spreecommerce.com'
   s.rubyforge_project = 'spree_faq'
 
-  s.files        = Dir['README.md', 'lib/**/*', 'app/**/*', 'config/*', 'db/*']
+  s.files        = Dir['README.md.md', 'lib/**/*', 'app/**/*', 'config/*', 'db/*']
   s.require_path = 'lib'
   s.requirements << 'none'
 

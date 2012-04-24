@@ -24,13 +24,19 @@ sudo ln -s /Applications/MAMP/tmp/mysql/mysql.sock /tmp/mysql.sock
 /----------------------------------------------------------------------------------------------
 git://github.com/pronix/spree-multi-currency.git
 
+bundle exec rake multi_currencies:install
+
 The argument in square brackets is the iso code of your basic currency, so to load rates when US Dollar is your basic currency, use
 
 ->    rake multi_currencies:rates:google[usd]
 
 if you want change rates GBP to main currency
 
-1.  rake multi_currencies:rates:google[gpb]
+1.  rake multi_currencies:rates:google[gbp]  RAILS_ENV="production"
 2.  goto admin->configuration->currency setting-> set basic to gbp
+
+
+
+
 
 
