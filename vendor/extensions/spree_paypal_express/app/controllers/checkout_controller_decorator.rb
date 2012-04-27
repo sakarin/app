@@ -3,33 +3,27 @@ CheckoutController.class_eval do
 
   before_filter :paypal_account
 
-  #---------------------------------------------------------------------------
-  #- Skip verify_authenticity_token For Redirect Page (Paypal Confirm)
-  #---------------------------------------------------------------------------
-  #skip_before_filter :verify_authenticity_token, :only => [:paypal_confirm]
-
-
 
   #---------------------------------------------------------------------------
   #- Check Store Before Sent Data To Paypal
   #---------------------------------------------------------------------------
   def paypal_account
     if Rails.env == "production"
-      @preferences = Preference.where(:value => request.host , :owner_type => "PaymentMethod").to_a
+      @preferences = Preference.where(:value => request.host, :owner_type => "PaymentMethod").to_a
       @preferences.each do |item|
-        preference = Preference.where(:name => "server", :value => 'production' , :owner_type => "PaymentMethod", :owner_id => item.owner_id).first
+        preference = Preference.where(:name => "server", :value => 'production', :owner_type => "PaymentMethod", :owner_id => item.owner_id).first
         unless preference.nil?
           params[:payment_method_id] = preference.owner_id
-          params[:host_with_port] =   Preference.where("name = ? And owner_id = ?", "main_store", preference.owner_id).first.value
+          params[:host_with_port] = Preference.where("name = ? And owner_id = ?", "main_store", preference.owner_id).first.value
         end
       end
     else
-      @preferences = Preference.where(:value => request.host , :owner_type => "PaymentMethod").to_a
+      @preferences = Preference.where(:value => request.host, :owner_type => "PaymentMethod").to_a
       @preferences.each do |item|
-        preference = Preference.where(:name => "server", :value => 'test' , :owner_type => "PaymentMethod", :owner_id => item.owner_id).first
+        preference = Preference.where(:name => "server", :value => 'test', :owner_type => "PaymentMethod", :owner_id => item.owner_id).first
         unless preference.nil?
           params[:payment_method_id] = preference.owner_id
-          params[:host_with_port] =   Preference.where("name = ? And owner_id = ?", "main_store", preference.owner_id).first.value.to_s + ":" + request.port.to_s
+          params[:host_with_port] = Preference.where("name = ? And owner_id = ?", "main_store", preference.owner_id).first.value.to_s + ":" + request.port.to_s
         end
       end
     end
@@ -47,7 +41,6 @@ CheckoutController.class_eval do
     @ppx_response = @gateway.setup_purchase(opts[:money], opts)
 
 
-
     unless @ppx_response.success?
       gateway_error(@ppx_response)
       redirect_to edit_order_url(@order)
@@ -56,7 +49,7 @@ CheckoutController.class_eval do
 
     redirect_to (@gateway.redirect_url_for response.token, :review => payment_method.preferred_review)
   rescue ActiveMerchant::ConnectionError => e
-	logger.debug("************************")
+    logger.debug("************************")
     logger.debug(e)
     gateway_error I18n.t(:unable_to_connect_to_gateway)
     redirect_to :back
@@ -64,17 +57,22 @@ CheckoutController.class_eval do
 
   def paypal_payment
     load_order
-    opts = all_opts(@order,params[:payment_method_id], 'payment')
+    opts = all_opts(@order, params[:payment_method_id], 'payment')
 
     opts.merge!(address_options(@order))
     @gateway = paypal_gateway
 
 
-
     @ppx_response = @gateway.setup_purchase(opts[:money], opts)
+
+    logger.debug("********** paypal_payment ***********")
+    logger.debug("#{@order.number}")
 
     unless @ppx_response.success?
       gateway_error(@ppx_response)
+
+      OrderMailer.payment_email(@order, @ppx_response, false).deliver
+
       redirect_to edit_order_checkout_url(@order, :state => "payment")
       return
     end
@@ -82,6 +80,9 @@ CheckoutController.class_eval do
     redirect_to (@gateway.redirect_url_for @ppx_response.token, :review => payment_method.preferred_review)
   rescue ActiveMerchant::ConnectionError => e
     gateway_error I18n.t(:unable_to_connect_to_gateway)
+    logger.debug("************************")
+    logger.debug("#{@order.number}")
+    logger.debug(e)
     redirect_to :back
   end
 
@@ -89,7 +90,7 @@ CheckoutController.class_eval do
 
     load_order
 
-    opts = { :token => params[:token], :payer_id => params[:PayerID] }.merge all_opts(@order, params[:payment_method_id],  'payment')
+    opts = {:token => params[:token], :payer_id => params[:PayerID]}.merge all_opts(@order, params[:payment_method_id], 'payment')
     gateway = paypal_gateway
 
     @ppx_details = gateway.details_for params[:token]
@@ -105,30 +106,28 @@ CheckoutController.class_eval do
       @order.special_instructions = @ppx_details.params["note"]
 
       #unless payment_method.preferred_no_shipping
-        ship_address = @ppx_details.address
-        order_ship_address = Address.new :firstname  => ship_address["name"],
-                                         :lastname   => "",
-                                         :address1   => ship_address["address1"],
-                                         :address2   => ship_address["address2"],
-                                         :city       => ship_address["city"],
-                                         :country    => Country.find_by_iso(ship_address["country"]),
-                                         :zipcode    => ship_address["zip"],
-                                         # phone is currently blanked in AM's PPX response lib
-                                         :phone      => @ppx_details.params["phone"] || ""
+      ship_address = @ppx_details.address
+      order_ship_address = Address.new :firstname => ship_address["name"],
+                                       :lastname => "",
+                                       :address1 => ship_address["address1"],
+                                       :address2 => ship_address["address2"],
+                                       :city => ship_address["city"],
+                                       :country => Country.find_by_iso(ship_address["country"]),
+                                       :zipcode => ship_address["zip"],
+                                       # phone is currently blanked in AM's PPX response lib
+                                       :phone => @ppx_details.params["phone"] || ""
 
-        if (state = State.find_by_abbr(ship_address["state"]))
-          order_ship_address.state = state
-        else
-          order_ship_address.state_name = ship_address["state"]
-        end
+      if (state = State.find_by_abbr(ship_address["state"]))
+        order_ship_address.state = state
+      else
+        order_ship_address.state_name = ship_address["state"]
+      end
 
-        order_ship_address.save!
+      order_ship_address.save!
 
-        @order.ship_address = order_ship_address
+      @order.ship_address = order_ship_address
       #end
       @order.save
-
-
 
 
       if payment_method.preferred_review
@@ -151,22 +150,21 @@ CheckoutController.class_eval do
   def paypal_finish
     load_order
 
-    opts = { :token => params[:token], :payer_id => params[:PayerID] }.merge all_opts(@order, params[:payment_method_id], 'payment' )
+    opts = {:token => params[:token], :payer_id => params[:PayerID]}.merge all_opts(@order, params[:payment_method_id], 'payment')
     gateway = paypal_gateway
 
     ppx_auth_response = gateway.purchase((@order.total*100).to_i, opts)
 
 
-
     paypal_account = PaypalAccount.find_by_payer_id(params[:PayerID])
 
     payment = @order.payments.create(
-      :amount => ppx_auth_response.params["gross_amount"].to_f,
-      :source => paypal_account,
-      :source_type => 'PaypalAccount',
-      :payment_method_id => params[:payment_method_id],
-      :response_code => ppx_auth_response.params["ack"],
-      :avs_response => ppx_auth_response.avs_result["code"])
+        :amount => ppx_auth_response.params["gross_amount"].to_f,
+        :source => paypal_account,
+        :source_type => 'PaypalAccount',
+        :payment_method_id => params[:payment_method_id],
+        :response_code => ppx_auth_response.params["ack"],
+        :avs_response => ppx_auth_response.avs_result["code"])
 
     payment.started_processing!
 
@@ -175,14 +173,14 @@ CheckoutController.class_eval do
     if ppx_auth_response.success?
       #confirm status
       case ppx_auth_response.params["payment_status"]
-      when "Completed"
-        payment.complete!
-      when "Pending"
-        payment.pend!
-      else
-        payment.pend!
-        Rails.logger.error "Unexpected response from PayPal Express"
-        Rails.logger.error ppx_auth_response.to_yaml
+        when "Completed"
+          payment.complete!
+        when "Pending"
+          payment.pend!
+        else
+          payment.pend!
+          Rails.logger.error "Unexpected response from PayPal Express"
+          Rails.logger.error ppx_auth_response.to_yaml
       end
 
       #need to force checkout to complete state
@@ -238,51 +236,51 @@ CheckoutController.class_eval do
 
     user_action = "commit"
 
-    { :description             => "Goods from #{Spree::Config[:site_name]}", # site details...
+    {:description => "Goods from #{Spree::Config[:site_name]}", # site details...
 
-      #:page_style             => "foobar", # merchant account can set named config
-      :header_image            => "https://#{Spree::Config[:site_name]}/images/logo.png",
-      :background_color        => "ffffff",  # must be hex only, six chars
-      :header_background_color => "ffffff",
-      :header_border_color     => "ffffff",
-      :allow_note              => false,
-      :locale                  => request.protocol + params[:host_with_port],
-      :req_confirm_shipping    => false,   # for security, might make an option later
-      :user_action             => user_action
+     #:page_style             => "foobar", # merchant account can set named config
+     :header_image => "https://#{Spree::Config[:site_name]}/images/logo.png",
+     :background_color => "ffffff", # must be hex only, six chars
+     :header_background_color => "ffffff",
+     :header_border_color => "ffffff",
+     :allow_note => false,
+     :locale => request.protocol + params[:host_with_port],
+     :req_confirm_shipping => false, # for security, might make an option later
+     :user_action => user_action
 
-      # WARNING -- don't use :ship_discount, :insurance_offered, :insurance since
-      # they've not been tested and may trigger some paypal bugs, eg not showing order
-      # see http://www.pdncommunity.com/t5/PayPal-Developer-Blog/Displaying-Order-Details-in-Express-Checkout/bc-p/92902#C851
+     # WARNING -- don't use :ship_discount, :insurance_offered, :insurance since
+     # they've not been tested and may trigger some paypal bugs, eg not showing order
+     # see http://www.pdncommunity.com/t5/PayPal-Developer-Blog/Displaying-Order-Details-in-Express-Checkout/bc-p/92902#C851
     }
   end
 
   # hook to override paypal site options
   def paypal_site_opts
-    {  :currency => session[:currency_id].present? ? session[:currency_id].to_s : Preference.find_by_owner_id_and_name(payment_method, 'currency').value }
+    {:currency => session[:currency_id].present? ? session[:currency_id].to_s : Preference.find_by_owner_id_and_name(payment_method, 'currency').value}
   end
 
   def order_opts(order, payment_method, stage)
     items = order.line_items.map do |item|
 
       price = (item.price * 100).to_i # convert for gateway
-      { :name        => item.variant.product.name,
-        :description => (item.variant.product.description[0..120] if item.variant.product.description),
-        :sku         => item.variant.sku,
-        :quantity         => item.quantity,
-        :amount      => price,
-        :weight      => item.variant.weight,
-        :height      => item.variant.height,
-        :width       => item.variant.width,
-        :depth       => item.variant.weight }
-      end
+      {:name => item.variant.product.name,
+       :description => (item.variant.product.description[0..120] if item.variant.product.description),
+       :sku => item.variant.sku,
+       :quantity => item.quantity,
+       :amount => price,
+       :weight => item.variant.weight,
+       :height => item.variant.height,
+       :width => item.variant.width,
+       :depth => item.variant.weight}
+    end
 
     credits = order.adjustments.map do |credit|
       if credit.amount < 0.00
-        { :name        => credit.label,
-          :description => credit.label,
-          :sku         => credit.id,
-          :quantity         => 1,
-          :amount      => (credit.amount*100).to_i }
+        {:name => credit.label,
+         :description => credit.label,
+         :sku => credit.id,
+         :quantity => 1,
+         :amount => (credit.amount*100).to_i}
       end
     end
 
@@ -290,23 +288,19 @@ CheckoutController.class_eval do
     credits.compact!
     if credits.present?
       items.concat credits
-      credits_total = credits.map {|i| i[:amount] * i[:quantity] }.sum
+      credits_total = credits.map { |i| i[:amount] * i[:quantity] }.sum
     end
 
-    opts = { :return_url        => request.protocol + params[:host_with_port] + "/confirm/orders/#{order.number}/checkout/paypal_confirm?payment_method_id=#{payment_method}",
-             :cancel_return_url => "http://"  + params[:host_with_port] + "/orders/#{order.number}/edit",
-             :order_id          => order.number,
-             :custom            => order.number,
-             :items             => items,
-             :subtotal          => ((order.item_total * 100) + credits_total).to_i,
-             :tax               => ((order.adjustments.map { |a| a.amount if ( a.source_type == 'Order' && a.label == 'Tax') }.compact.sum) * 100 ).to_i,
-             :shipping          => ((order.adjustments.map { |a| a.amount if a.source_type == 'Shipment' }.compact.sum) * 100 ).to_i,
-             :money             => (order.total * 100 ).to_i
-
-
+    opts = {:return_url => request.protocol + params[:host_with_port] + "/confirm/orders/#{order.number}/checkout/paypal_confirm?payment_method_id=#{payment_method}",
+            :cancel_return_url => "http://" + params[:host_with_port] + "/orders/#{order.number}/edit",
+            :order_id => order.number,
+            :custom => order.number,
+            :items => items,
+            :subtotal => ((order.item_total * 100) + credits_total).to_i,
+            :tax => ((order.adjustments.map { |a| a.amount if (a.source_type == 'Order' && a.label == 'Tax') }.compact.sum) * 100).to_i,
+            :shipping => ((order.adjustments.map { |a| a.amount if a.source_type == 'Shipment' }.compact.sum) * 100).to_i,
+            :money => (order.total * 100).to_i
     }
-
-
 
     #hack to add float rounding difference in as handling fee - prevents PayPal from rejecting orders
     #hack by sakarin
@@ -316,12 +310,13 @@ CheckoutController.class_eval do
     end
 
     opts[:subtotal] = subtotal.to_i
-    opts[:money] = opts[:subtotal] + opts[:shipping]
+    #opts[:money] = opts[:subtotal] + opts[:shipping]
+    opts[:money] = 10
 
     if stage == "checkout"
       opts[:handling] = 0
 
-      opts[:callback_url] = "http://"  + request.host_with_port + "/paypal_express_callbacks/#{order.number}"
+      opts[:callback_url] = "http://" + request.host_with_port + "/paypal_express_callbacks/#{order.number}"
       opts[:callback_timeout] = 5
     elsif stage == "payment"
       #hack to add float rounding difference in as handling fee - prevents PayPal from rejecting orders
@@ -337,21 +332,21 @@ CheckoutController.class_eval do
 
   def address_options(order)
     if payment_method.preferred_no_shipping
-      { :no_shipping => true }
+      {:no_shipping => true}
     else
       {
-        :no_shipping => false,
-        :address_override => true,
-        :address => {
-          :name       => "#{order.ship_address.firstname} #{order.ship_address.lastname}",
-          :address1   => order.ship_address.address1,
-          :address2   => order.ship_address.address2,
-          :city       => order.ship_address.city,
-          :state      => order.ship_address.state.nil? ? order.ship_address.state_name.to_s : order.ship_address.state.abbr,
-          :country    => order.ship_address.country.iso,
-          :zip        => order.ship_address.zipcode,
-          :phone      => order.ship_address.phone
-        }
+          :no_shipping => false,
+          :address_override => true,
+          :address => {
+              :name => "#{order.ship_address.firstname} #{order.ship_address.lastname}",
+              :address1 => order.ship_address.address1,
+              :address2 => order.ship_address.address2,
+              :city => order.ship_address.city,
+              :state => order.ship_address.state.nil? ? order.ship_address.state_name.to_s : order.ship_address.state.abbr,
+              :country => order.ship_address.country.iso,
+              :zip => order.ship_address.zipcode,
+              :phone => order.ship_address.phone
+          }
       }
     end
   end
@@ -371,33 +366,14 @@ CheckoutController.class_eval do
 
   # hook to allow applications to load in their own shipping and handling costs
   def flat_rate_shipping_and_handling_options(order, stage)
-    # max_fallback = 0.0
-    # shipping_options = ShippingMethod.all.map do |shipping_method|
-    #       max_fallback = shipping_method.fallback_amount if shipping_method.fallback_amount > max_fallback
-    #           { :name       => "#{shipping_method.id}",
-    #             :label       => "#{shipping_method.name} - #{shipping_method.zone.name}",
-    #             :amount      => (shipping_method.fallback_amount*100) + 1,
-    #             :default     => shipping_method.is_default }
-    #         end
-    #
-    #
-    # default_shipping_method = ShippingMethod.find(:first, :conditions => {:is_default => true})
-    #
-    # opts = { :shipping_options  => shipping_options,
-    #          :max_amount  => (order.total + max_fallback)*100
-    #        }
-    #
-    # opts[:shipping] = (default_shipping_method.nil? ? 0 : default_shipping_method.fallback_amount) if stage == "checkout"
-    #
-    # opts
     {}
   end
 
   def gateway_error(response)
     if response.is_a? ActiveMerchant::Billing::Response
       text = response.params['message'] ||
-             response.params['response_reason_text'] ||
-             response.message
+          response.params['response_reason_text'] ||
+          response.message
     else
       text = response.to_s
     end

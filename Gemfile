@@ -45,3 +45,5 @@ end
 gem 'exception_notification', :require => 'exception_notifier'
 
 gem "multi_currencies", :path => "vendor/extensions/spree-multi-currency"
+
+#gem "multi_currencies", :path => "vendor/extensions/devilcoders-spree-multi-currency"

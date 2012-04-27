@@ -18,4 +18,6 @@ class OrderMailer < ActionMailer::Base
     mail_params[:from] = order.store.email if order.store.email.present?
     mail(mail_params)
   end
+
+
 end

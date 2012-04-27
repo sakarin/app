@@ -20,7 +20,7 @@ App::Application.routes.draw do
   match '/checkout' => 'checkout#edit', :state => 'delivery', :as => :checkout
 
   resources :comments
-  resources :tickets
+  #resources :tickets
 
 
 
