@@ -310,8 +310,8 @@ CheckoutController.class_eval do
     end
 
     opts[:subtotal] = subtotal.to_i
-    #opts[:money] = opts[:subtotal] + opts[:shipping]
-    opts[:money] = 10
+    opts[:money] = opts[:subtotal] + opts[:shipping]
+
 
     if stage == "checkout"
       opts[:handling] = 0
