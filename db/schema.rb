@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121109134453) do
+ActiveRecord::Schema.define(:version => 20121109134454) do
 
   create_table "ad_hoc_option_types", :force => true do |t|
     t.integer  "product_id"
@@ -95,6 +95,13 @@ ActiveRecord::Schema.define(:version => 20121109134453) do
 
   add_index "assets", ["viewable_id"], :name => "index_assets_on_viewable_id"
   add_index "assets", ["viewable_type", "type"], :name => "index_assets_on_viewable_type_and_type"
+
+  create_table "black_lists", :force => true do |t|
+    t.string   "ip"
+    t.string   "reason"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "calculators", :force => true do |t|
     t.string   "type"
