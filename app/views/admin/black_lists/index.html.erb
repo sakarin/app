@@ -1,0 +1,35 @@
+<%= render :partial => 'admin/shared/configuration_menu' %>
+
+<div class='toolbar'>
+  <ul class='actions'>
+    <li>
+      <%= button_link_to "New Black List", new_object_url, :icon => 'add'  %>
+    </li>
+  </ul>
+  <br class='clear' />
+</div>
+
+<h1>Black Lists</h1>
+
+<table class="index">
+  <thead>
+  <th>IP</th>
+  <th>Reason</th>
+
+  <th><%= t("action") %></th>
+  </thead>
+  <tbody>
+  <% @black_lists.each do |black_list|%>
+      <tr id="<%= dom_id black_list %>">
+        <td width="120px"><%= black_list.ip %></td>
+        <td width="200px"><%= black_list.reason %></td>
+
+
+        <td width="140px">
+          <%= link_to_edit black_list %> &nbsp;
+          <%= link_to_delete black_list %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

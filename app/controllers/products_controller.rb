@@ -3,6 +3,8 @@ class ProductsController < Spree::BaseController
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
   helper :taxons
 
+  before_filter :blocking_ip
+
   respond_to :html
 
   def index
@@ -46,6 +48,12 @@ class ProductsController < Spree::BaseController
       [variant, v[1]]
     end
     variants.sort { |x, y| y[1] <=> x[1] }
+  end
+
+  def blocking_ip
+    if BlackList.find_by_ip(request.ip)
+      redirect_to "/antihack.html"
+    end
   end
 
 end

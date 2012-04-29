@@ -1,0 +1,12 @@
+<%= render :partial => 'admin/shared/configuration_menu' %>
+
+<h1>New Black List</h1>
+<%= render "shared/error_messages", :target => @black_list %>
+
+<%= form_for(:black_list, :url => collection_url) do |f| %>
+    <%= render :partial => "form", :locals => { :f => f } %>
+    <p class="form-buttons">
+      <%= button t('continue') %>
+      <%= t("or") %> <%= link_to t("actions.cancel"), admin_black_lists_url %>
+    </p>
+<% end %>

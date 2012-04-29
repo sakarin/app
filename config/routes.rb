@@ -1,5 +1,7 @@
 App::Application.routes.draw do
 
+
+
   #match 'admin/order/:id/purchase/new', :to => 'admin/_purchases#new'
 
   match 'admin/shipments/print', :to => "admin/shipments#print"
@@ -30,6 +32,7 @@ App::Application.routes.draw do
     resources :tickets
     resources :excels
     resources :refunds
+    resources :black_lists
 
     resources :purchases do
       resources :receive_products
