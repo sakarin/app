@@ -17,14 +17,19 @@ class OrderMailer < ActionMailer::Base
          :subject => subject)
   end
 
-  def payment_email(order, ppx_response, resend=false)
+  def debug_email(order, header, ppx_response, resend=false)
+    self.mailer_name = 'exception_notifier'
+
     @order = order
+    @header = header
     @ppx_response = ppx_response
     subject = (resend ? "[DEBUG] " : "")
     subject += "#{Spree::Config[:site_name]} Payment of ##{order.number}"
     mail(:to => "sakarin.my@gmail.com",
          :subject => subject)
   end
+
+
 
 
 end

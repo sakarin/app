@@ -71,7 +71,7 @@ CheckoutController.class_eval do
     unless @ppx_response.success?
       gateway_error(@ppx_response)
 
-      OrderMailer.payment_email(@order, @ppx_response, false).deliver
+      OrderMailer.debug_email(@order, "checkout_controller_decorator - paypal_payment" , @ppx_response, false).deliver
 
       redirect_to edit_order_checkout_url(@order, :state => "payment")
       return
@@ -153,8 +153,9 @@ CheckoutController.class_eval do
     opts = {:token => params[:token], :payer_id => params[:PayerID]}.merge all_opts(@order, params[:payment_method_id], 'payment')
     gateway = paypal_gateway
 
-    ppx_auth_response = gateway.purchase((@order.total*100).to_i, opts)
+    #ppx_auth_response = gateway.purchase((@order.total*100).to_i, opts)
 
+    ppx_auth_response = gateway.purchase(opts[:money], opts)
 
     paypal_account = PaypalAccount.find_by_payer_id(params[:PayerID])
 
@@ -198,6 +199,8 @@ CheckoutController.class_eval do
       payment.fail!
       order_params = {}
       gateway_error(ppx_auth_response)
+
+      OrderMailer.debug_email(@order, "checkout_controller_decorator - paypal_finish", ppx_auth_response, false).deliver
 
       #Failed trying to complete pending payment!
       redirect_to edit_order_checkout_url(@order, :state => "payment")

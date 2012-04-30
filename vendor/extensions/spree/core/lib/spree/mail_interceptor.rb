@@ -17,9 +17,7 @@ module Spree
 
       if mail_method.preferred_mail_bcc.present?
         unless message.delivery_handler.mailer_name == "exception_notifier"
-          unless message.header.fields[2].to_s == "sakarin.my@gmail.com"
             message.bcc = mail_method.preferred_mail_bcc
-          end
         end
 
       end
