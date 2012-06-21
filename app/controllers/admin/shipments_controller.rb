@@ -11,7 +11,10 @@ class Admin::ShipmentsController < Admin::BaseController
   end
 
   def home
-    @orders = Order.where(" shipment_state != 'shipped'  AND state LIKE 'complete'")
+    # @orders = Order.where(" shipment_state != 'shipped'  AND state LIKE 'complete'")
+    @orders = Order.where("shipment_state != 'shipped'  AND state LIKE 'complete'").paginate(        
+        :per_page => 10,
+        :page => params[:page])
     respond_with(@orders)
   end
 
