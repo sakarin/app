@@ -1,5 +1,11 @@
 source 'http://rubygems.org'
 
+# Use unicorn as the app server
+gem 'unicorn'
+
+# Deploy with Capistrano
+gem 'capistrano'
+
 gem 'rails', '3.0.9'
 
 gem 'rake', '0.8.7'
