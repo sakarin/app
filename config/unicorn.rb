@@ -1,7 +1,7 @@
 root = "/home/deployer/apps/app/current"
 working_directory root
 pid "#{root}/tmp/pids/unicorn.pid"
-stderr_path "#{root}/log/unicorn_error.log"
+stderr_path "#{root}/log/unicorn.log"
 stdout_path "#{root}/log/unicorn.log"
 
 listen "/tmp/unicorn.app.sock"
