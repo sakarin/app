@@ -250,6 +250,7 @@ DEPENDENCIES
   rake (= 0.8.7)
   spreadsheet (~> 0.6.5.9)
   spree!
+  spree_editor
   spree_faq!
   spree_flexi_variants!
   spree_multi_domain!

@@ -32,7 +32,7 @@ gem 'formtastic'
 
 gem 'spree_static_content', :path => "vendor/extensions/spree_static_content/"
 
-#gem 'spree_editor'
+gem 'spree_editor'
 
 gem "acts_as_commentable"
 
